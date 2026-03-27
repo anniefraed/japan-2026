@@ -3,802 +3,1138 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Japan Reiseplan 2025</title>
-<link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho:wght@400;600;700;800&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<title>Japan 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Mono:wght@300;400&family=Outfit:wght@200;300;400;500&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --ink: #1a1410;
-    --paper: #f5f0e8;
-    --warm: #e8dcc8;
-    --accent: #c8432a;
-    --accent2: #4a7c6f;
-    --accent3: #d4a843;
-    --muted: #8a7d6e;
-    --light: #faf7f2;
-    --border: rgba(26,20,16,0.12);
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  body {
-    background: var(--paper);
-    color: var(--ink);
-    font-family: 'DM Sans', sans-serif;
-    font-weight: 300;
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
-
-  /* HEADER */
-  header {
-    position: relative;
-    padding: 60px 48px 48px;
-    border-bottom: 1px solid var(--border);
-    background: var(--ink);
-    color: var(--paper);
-    overflow: hidden;
-  }
-
-  header::before {
-    content: '日本';
-    position: absolute;
-    right: -20px;
-    top: -30px;
-    font-family: 'Shippori Mincho', serif;
-    font-size: 220px;
-    opacity: 0.06;
-    line-height: 1;
-    pointer-events: none;
-  }
-
-  .header-top {
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 24px;
-  }
-
-  .header-tag {
-    font-size: 10px;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--accent);
-    margin-bottom: 12px;
-    font-weight: 500;
-  }
-
-  h1 {
-    font-family: 'Shippori Mincho', serif;
-    font-size: clamp(36px, 6vw, 72px);
-    line-height: 1.05;
-    font-weight: 700;
-    letter-spacing: -1px;
-  }
-
-  .header-meta {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 8px;
-  }
-
-  .badge {
-    background: rgba(255,255,255,0.1);
-    border: 1px solid rgba(255,255,255,0.15);
-    padding: 6px 14px;
-    border-radius: 100px;
-    font-size: 12px;
-    letter-spacing: 1px;
-    white-space: nowrap;
-  }
-
-  .route-bar {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    flex-wrap: wrap;
-    margin-top: 32px;
-    padding-top: 24px;
-    border-top: 1px solid rgba(255,255,255,0.1);
-    font-size: 13px;
-    color: rgba(245,240,232,0.6);
-  }
-
-  .route-city {
-    color: var(--paper);
-    font-weight: 500;
-    font-size: 13px;
-  }
-
-  .route-arrow { opacity: 0.4; font-size: 11px; }
-
-  /* NAV */
-  nav {
-    position: sticky;
-    top: 0;
-    z-index: 100;
-    background: var(--paper);
-    border-bottom: 1px solid var(--border);
-    padding: 0 48px;
-    display: flex;
-    gap: 0;
-    overflow-x: auto;
-    scrollbar-width: none;
-  }
-
-  nav::-webkit-scrollbar { display: none; }
-
-  .nav-btn {
-    padding: 16px 20px;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 12px;
-    font-weight: 500;
-    letter-spacing: 0.5px;
-    background: none;
-    border: none;
-    border-bottom: 2px solid transparent;
-    cursor: pointer;
-    color: var(--muted);
-    white-space: nowrap;
-    transition: all 0.2s;
-  }
-
-  .nav-btn:hover { color: var(--ink); }
-  .nav-btn.active { color: var(--ink); border-bottom-color: var(--accent); }
-
-  /* MAIN */
-  main {
-    max-width: 1100px;
-    margin: 0 auto;
-    padding: 0 48px 80px;
-  }
-
-  /* CITY SECTION */
-  .city-section {
-    display: none;
-    animation: fadeIn 0.3s ease;
-  }
-
-  .city-section.active { display: block; }
-
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(8px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-
-  .city-header {
-    padding: 48px 0 32px;
-    display: grid;
-    grid-template-columns: 1fr auto;
-    align-items: end;
-    gap: 24px;
-    border-bottom: 1px solid var(--border);
-    margin-bottom: 40px;
-  }
-
-  .city-name {
-    font-family: 'Shippori Mincho', serif;
-    font-size: clamp(32px, 5vw, 56px);
-    font-weight: 700;
-    line-height: 1;
-  }
-
-  .city-dates {
-    font-size: 12px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-top: 8px;
-  }
-
-  .city-hotel {
-    text-align: right;
-  }
-
-  .hotel-label {
-    font-size: 10px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--muted);
-    margin-bottom: 4px;
-  }
-
-  .hotel-name {
-    font-family: 'Shippori Mincho', serif;
-    font-size: 18px;
-    font-weight: 600;
-    color: var(--accent2);
-  }
-
-  .hotel-rating {
-    font-size: 12px;
-    color: var(--muted);
-    margin-top: 2px;
-  }
-
-  /* TRAVEL INFO BAR */
-  .travel-bar {
-    background: var(--ink);
-    color: var(--paper);
-    border-radius: 12px;
-    padding: 16px 24px;
-    display: flex;
-    align-items: center;
-    gap: 16px;
-    margin-bottom: 40px;
-    font-size: 13px;
-    flex-wrap: wrap;
-  }
-
-  .travel-bar-icon { font-size: 16px; }
-  .travel-bar strong { font-weight: 500; }
-  .travel-bar .sep { opacity: 0.3; }
-
-  /* DAY CARD */
-  .day-card {
-    margin-bottom: 32px;
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    overflow: hidden;
-    background: var(--light);
-  }
-
-  .day-header {
-    background: var(--warm);
-    padding: 20px 28px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    border-bottom: 1px solid var(--border);
-  }
-
-  .day-label {
-    font-family: 'Shippori Mincho', serif;
-    font-size: 22px;
-    font-weight: 700;
-  }
-
-  .day-theme {
-    font-size: 12px;
-    color: var(--muted);
-    font-style: italic;
-    letter-spacing: 0.5px;
-  }
-
-  .day-date {
-    font-size: 11px;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-
-  /* TIMELINE */
-  .timeline {
-    padding: 24px 28px;
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-  }
-
-  .timeline-item {
-    display: grid;
-    grid-template-columns: 72px 1fr;
-    gap: 16px;
-    position: relative;
-  }
-
-  .timeline-item:not(:last-child)::after {
-    content: '';
-    position: absolute;
-    left: 35px;
-    top: 28px;
-    bottom: -16px;
-    width: 1px;
-    background: var(--border);
-  }
-
-  .time-col {
-    padding-top: 4px;
-    text-align: right;
-  }
-
-  .time {
-    font-size: 12px;
-    font-weight: 500;
-    color: var(--muted);
-    letter-spacing: 0.5px;
-    white-space: nowrap;
-  }
-
-  .content-col {
-    padding: 4px 0 24px;
-  }
-
-  .item-type {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 10px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    font-weight: 500;
-    margin-bottom: 4px;
-  }
-
-  .type-transit { color: #5a7fc4; }
-  .type-food { color: var(--accent); }
-  .type-sight { color: var(--accent2); }
-  .type-cafe { color: #9b7b4e; }
-  .type-stay { color: var(--accent3); }
-  .type-shop { color: #7b5ea7; }
-  .type-activity { color: #c46b5a; }
-
-  .item-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    display: inline-block;
-    flex-shrink: 0;
-  }
-
-  .dot-transit { background: #5a7fc4; }
-  .dot-food { background: var(--accent); }
-  .dot-sight { background: var(--accent2); }
-  .dot-cafe { background: #9b7b4e; }
-  .dot-stay { background: var(--accent3); }
-  .dot-shop { background: #7b5ea7; }
-  .dot-activity { background: #c46b5a; }
-
-  .item-name {
-    font-family: 'Shippori Mincho', serif;
-    font-size: 18px;
-    font-weight: 600;
-    line-height: 1.2;
-    margin-bottom: 4px;
-  }
-
-  .item-detail {
-    font-size: 13px;
-    color: var(--muted);
-    line-height: 1.5;
-  }
-
-  .item-tip {
-    margin-top: 6px;
-    background: rgba(200,67,42,0.06);
-    border-left: 2px solid var(--accent);
-    padding: 6px 10px;
-    font-size: 12px;
-    color: var(--ink);
-    border-radius: 0 6px 6px 0;
-    font-style: italic;
-  }
-
-  .transit-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    background: rgba(90,127,196,0.1);
-    border: 1px solid rgba(90,127,196,0.2);
-    border-radius: 100px;
-    padding: 4px 12px;
-    font-size: 12px;
-    color: #3a5fa0;
-    margin-top: 4px;
-  }
-
-  /* SHINKANSEN CARD */
-  .shinkansen-card {
-    background: var(--ink);
-    color: var(--paper);
-    border-radius: 12px;
-    padding: 20px 24px;
-    margin-bottom: 32px;
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    flex-wrap: wrap;
-  }
-
-  .shinkansen-icon { font-size: 28px; }
-
-  .shinkansen-info { flex: 1; min-width: 200px; }
-
-  .shinkansen-route {
-    font-family: 'Shippori Mincho', serif;
-    font-size: 20px;
-    font-weight: 600;
-    margin-bottom: 4px;
-  }
-
-  .shinkansen-meta {
-    font-size: 12px;
-    opacity: 0.6;
-    line-height: 1.6;
-  }
-
-  .shinkansen-times {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .stime {
-    text-align: center;
-  }
-
-  .stime-hour {
-    font-family: 'Shippori Mincho', serif;
-    font-size: 26px;
-    font-weight: 700;
-    line-height: 1;
-  }
-
-  .stime-label {
-    font-size: 10px;
-    opacity: 0.5;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-  }
-
-  .stime-arrow {
-    font-size: 20px;
-    opacity: 0.4;
-  }
-
-  .stime-duration {
-    background: rgba(255,255,255,0.1);
-    padding: 4px 12px;
-    border-radius: 100px;
-    font-size: 12px;
-    text-align: center;
-  }
-
-  /* TIPS GRID */
-  .tips-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 16px;
-    margin-bottom: 40px;
-  }
-
-  .tip-card {
-    background: var(--warm);
-    border-radius: 12px;
-    padding: 20px;
-  }
-
-  .tip-emoji { font-size: 20px; margin-bottom: 8px; }
-  .tip-title { font-weight: 500; font-size: 14px; margin-bottom: 4px; }
-  .tip-text { font-size: 12px; color: var(--muted); line-height: 1.5; }
-
-  /* LEGEND */
-  .legend {
-    display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
-    padding: 20px 28px;
-    border-top: 1px solid var(--border);
-    background: var(--warm);
-  }
-
-  .legend-item {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-    font-size: 11px;
-    color: var(--muted);
-    letter-spacing: 0.5px;
-  }
-
-  @media (max-width: 640px) {
-    header, nav, main { padding-left: 20px; padding-right: 20px; }
-    .city-header { grid-template-columns: 1fr; }
-    .city-hotel { text-align: left; }
-    .timeline { padding: 16px 16px; }
-    .day-header { padding: 16px 16px; flex-direction: column; align-items: flex-start; gap: 4px; }
-    .shinkansen-times { flex-wrap: wrap; }
-  }
+:root {
+  --bg: #eceef4;
+  --bg2: #e4e7f0;
+  --surface: #f0f2f8;
+  --card: #f7f8fc;
+  --ink: #1c1e2a;
+  --ink2: #4a4e66;
+  --muted: #8a8fa8;
+  --accent: #c0392b;
+  --accent2: #4a6fa5;
+  --accent3: #2ecc8a;
+  --border: rgba(28,30,42,0.08);
+  --border2: rgba(28,30,42,0.14);
+  --shadow: 0 1px 3px rgba(28,30,42,0.06), 0 4px 16px rgba(28,30,42,0.06);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Outfit', sans-serif;
+  font-weight: 300;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ─── HEADER ─── */
+.site-header {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.header-left {
+  background: var(--ink);
+  padding: 64px 56px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  overflow: hidden;
+}
+
+.header-left::before {
+  content: '日本';
+  position: absolute;
+  left: -20px;
+  bottom: -40px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 280px;
+  color: rgba(255,255,255,0.04);
+  line-height: 1;
+  pointer-events: none;
+  letter-spacing: -10px;
+}
+
+.header-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.header-title-block { margin-top: auto; margin-bottom: 40px; }
+
+.header-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(72px, 10vw, 128px);
+  font-weight: 300;
+  color: #f0f2f8;
+  line-height: 0.9;
+  letter-spacing: -3px;
+}
+
+.header-title em {
+  font-style: italic;
+  color: rgba(240,242,248,0.4);
+  display: block;
+  font-size: 0.65em;
+}
+
+.header-subtitle {
+  margin-top: 24px;
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.7;
+  max-width: 280px;
+  font-weight: 300;
+}
+
+.header-meta {
+  display: flex;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.meta-item {
+  border-top: 1px solid rgba(255,255,255,0.1);
+  padding-top: 12px;
+}
+
+.meta-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+
+.meta-value {
+  font-size: 14px;
+  color: rgba(240,242,248,0.8);
+  font-weight: 400;
+}
+
+.header-right {
+  background: var(--surface);
+  display: flex;
+  flex-direction: column;
+}
+
+.route-panel {
+  padding: 64px 48px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.route-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 32px;
+}
+
+.route-stop {
+  display: grid;
+  grid-template-columns: 48px 1fr auto;
+  align-items: center;
+  gap: 16px;
+  padding: 16px 0;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  transition: all 0.2s;
+  text-decoration: none;
+  color: inherit;
+}
+
+.route-stop:first-of-type { border-top: 1px solid var(--border); }
+
+.route-stop:hover { background: rgba(28,30,42,0.03); margin: 0 -16px; padding: 16px 16px; border-radius: 8px; border-color: transparent; }
+
+.stop-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 1px;
+}
+
+.stop-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px;
+  font-weight: 400;
+  letter-spacing: -0.5px;
+  line-height: 1;
+}
+
+.stop-jp {
+  font-size: 11px;
+  color: var(--muted);
+  margin-top: 2px;
+  font-weight: 300;
+}
+
+.stop-dates {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--accent2);
+  text-align: right;
+  white-space: nowrap;
+}
+
+.stop-nights {
+  font-size: 9px;
+  color: var(--muted);
+  margin-top: 2px;
+  text-align: right;
+}
+
+/* ─── NAV ─── */
+nav {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  background: rgba(236,238,244,0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border2);
+  display: flex;
+  align-items: center;
+  padding: 0 56px;
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+nav::-webkit-scrollbar { display: none; }
+
+.nav-logo {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  font-weight: 600;
+  letter-spacing: -0.5px;
+  margin-right: 40px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.nav-logo span { color: var(--accent); }
+
+.nav-btn {
+  padding: 16px 18px;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  font-weight: 400;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  color: var(--muted);
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+
+.nav-btn:hover { color: var(--ink); }
+.nav-btn.active { color: var(--ink); border-bottom-color: var(--accent); }
+
+/* ─── MAIN ─── */
+main { max-width: 1200px; margin: 0 auto; padding: 0 56px 120px; }
+
+/* ─── CITY SECTION ─── */
+.city-section { display: none; }
+.city-section.active { display: block; animation: fadeUp 0.35s ease; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ─── CITY HERO ─── */
+.city-hero {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  gap: 40px;
+  padding: 72px 0 40px;
+  border-bottom: 1px solid var(--border2);
+  margin-bottom: 48px;
+}
+
+.city-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 12px;
+}
+
+.city-name-block { display: flex; align-items: baseline; gap: 20px; }
+
+.city-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(48px, 6vw, 80px);
+  font-weight: 300;
+  line-height: 1;
+  letter-spacing: -2px;
+}
+
+.city-name-jp {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(28px, 3vw, 44px);
+  color: var(--muted);
+  font-weight: 300;
+  font-style: italic;
+}
+
+.city-dates-block { text-align: right; }
+
+.city-dates {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--accent2);
+  margin-bottom: 8px;
+}
+
+.city-nights {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* ─── HOTEL PLACEHOLDER ─── */
+.hotel-placeholder {
+  background: var(--card);
+  border: 1px dashed var(--border2);
+  border-radius: 12px;
+  padding: 20px 24px;
+  margin-bottom: 40px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.hotel-icon { font-size: 20px; opacity: 0.5; }
+
+.hotel-label-sm {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 3px;
+}
+
+.hotel-name-placeholder {
+  font-size: 15px;
+  color: var(--ink2);
+  font-weight: 400;
+}
+
+.hotel-rating {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+}
+
+/* ─── TRANSFER CARD ─── */
+.transfer-card {
+  background: var(--ink);
+  border-radius: 14px;
+  padding: 28px 32px;
+  margin-bottom: 40px;
+  display: flex;
+  align-items: center;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.transfer-icon { font-size: 24px; }
+
+.transfer-info { flex: 1; min-width: 180px; }
+
+.transfer-route {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-weight: 400;
+  color: #f0f2f8;
+  letter-spacing: -0.5px;
+  margin-bottom: 4px;
+}
+
+.transfer-meta {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: 1px;
+  line-height: 1.6;
+}
+
+.transfer-times {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.t-time { text-align: center; }
+.t-hour {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 32px;
+  font-weight: 300;
+  color: #f0f2f8;
+  line-height: 1;
+}
+.t-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: var(--muted);
+  letter-spacing: 1px;
+  margin-top: 2px;
+}
+.t-arrow { color: rgba(255,255,255,0.2); font-size: 16px; }
+.t-dur {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 100px;
+  padding: 4px 14px;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: rgba(255,255,255,0.6);
+  white-space: nowrap;
+}
+
+/* ─── KOYO BADGE ─── */
+.koyo-badge {
+  background: linear-gradient(135deg, rgba(200,60,30,0.1), rgba(220,140,30,0.1));
+  border: 1px solid rgba(200,60,30,0.2);
+  border-radius: 10px;
+  padding: 14px 20px;
+  margin-bottom: 40px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+  color: var(--ink2);
+}
+
+.koyo-emoji { font-size: 18px; }
+
+/* ─── LUGGAGE REMINDER ─── */
+.luggage-card {
+  background: rgba(74,111,165,0.08);
+  border: 1px solid rgba(74,111,165,0.2);
+  border-radius: 10px;
+  padding: 14px 20px;
+  margin-bottom: 32px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 13px;
+  color: var(--ink2);
+}
+
+/* ─── DAY BLOCK ─── */
+.day-block { margin-bottom: 48px; }
+
+.day-label-row {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border);
+}
+
+.day-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 2px;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+
+.day-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 26px;
+  font-weight: 400;
+  letter-spacing: -0.5px;
+}
+
+.day-theme {
+  font-size: 12px;
+  color: var(--muted);
+  font-style: italic;
+  margin-left: auto;
+  white-space: nowrap;
+}
+
+.day-date-tag {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--accent2);
+  background: rgba(74,111,165,0.08);
+  padding: 3px 10px;
+  border-radius: 100px;
+  white-space: nowrap;
+}
+
+/* ─── TIMELINE ─── */
+.timeline { display: flex; flex-direction: column; }
+
+.tl-item {
+  display: grid;
+  grid-template-columns: 64px 1px 1fr;
+  gap: 0 20px;
+  position: relative;
+}
+
+.tl-time {
+  padding-top: 3px;
+  text-align: right;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  letter-spacing: 0.5px;
+  line-height: 1;
+  padding-bottom: 32px;
+}
+
+.tl-line {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 0;
+}
+
+.tl-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 5px;
+  border: 1.5px solid var(--bg);
+}
+
+.tl-thread {
+  width: 1px;
+  flex: 1;
+  min-height: 24px;
+  background: var(--border2);
+  margin-top: 4px;
+}
+
+.tl-item:last-child .tl-thread { display: none; }
+
+.tl-content { padding-bottom: 32px; padding-top: 0; }
+
+/* dot colors */
+.dot-transit { background: #7a9cc8; border-color: var(--bg); }
+.dot-food { background: var(--accent); border-color: var(--bg); }
+.dot-sight { background: #5a9476; border-color: var(--bg); }
+.dot-cafe { background: #a07840; border-color: var(--bg); }
+.dot-stay { background: #c8962a; border-color: var(--bg); }
+.dot-shop { background: #8a68b0; border-color: var(--bg); }
+.dot-activity { background: #c46060; border-color: var(--bg); }
+.dot-luggage { background: #5a9cc8; border-color: var(--bg); }
+.dot-wishlist { background: var(--accent); border-color: var(--bg); }
+
+/* type label */
+.item-type {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 3px;
+}
+
+.type-transit { color: #7a9cc8; }
+.type-food { color: var(--accent); }
+.type-sight { color: #5a9476; }
+.type-cafe { color: #a07840; }
+.type-stay { color: #c8962a; }
+.type-shop { color: #8a68b0; }
+.type-activity { color: #c46060; }
+.type-luggage { color: #5a9cc8; }
+.type-wishlist { color: var(--accent); }
+
+/* item card */
+.item-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: box-shadow 0.2s, border-color 0.2s;
+}
+
+.item-card:hover {
+  box-shadow: var(--shadow);
+  border-color: var(--border2);
+}
+
+.item-card-inner { padding: 14px 18px; }
+
+.item-img {
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  display: block;
+  background: var(--bg2);
+}
+
+.item-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-weight: 400;
+  letter-spacing: -0.3px;
+  line-height: 1.2;
+  margin-bottom: 4px;
+}
+
+.item-detail {
+  font-size: 12px;
+  color: var(--ink2);
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+.item-tip {
+  margin-top: 8px;
+  padding: 7px 10px;
+  background: rgba(192,57,43,0.05);
+  border-left: 2px solid rgba(192,57,43,0.3);
+  border-radius: 0 6px 6px 0;
+  font-size: 11px;
+  color: var(--ink2);
+  font-style: italic;
+}
+
+.transit-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: rgba(74,111,165,0.08);
+  border: 1px solid rgba(74,111,165,0.15);
+  border-radius: 100px;
+  padding: 3px 10px;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--accent2);
+  margin-top: 6px;
+}
+
+.wishlist-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(192,57,43,0.08);
+  border: 1px solid rgba(192,57,43,0.2);
+  border-radius: 100px;
+  padding: 2px 8px;
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  color: var(--accent);
+  margin-top: 4px;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+/* simple (no card) items */
+.item-simple { padding: 2px 0 0; }
+
+/* ─── TIPS GRID ─── */
+.tips-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  margin-bottom: 48px;
+}
+
+.tip-card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 18px 20px;
+}
+
+.tip-emoji { font-size: 18px; margin-bottom: 8px; }
+.tip-title {
+  font-size: 13px;
+  font-weight: 500;
+  margin-bottom: 4px;
+  color: var(--ink);
+}
+.tip-text { font-size: 11px; color: var(--muted); line-height: 1.6; }
+
+/* ─── WISHLIST SUMMARY ─── */
+.wishlist-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 10px;
+  margin-bottom: 48px;
+}
+
+.wish-item {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.wish-check {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: rgba(46,204,138,0.15);
+  border: 1px solid rgba(46,204,138,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 9px;
+  color: var(--accent3);
+  flex-shrink: 0;
+}
+
+.wish-text { font-size: 12px; color: var(--ink2); line-height: 1.3; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 768px) {
+  .site-header { grid-template-columns: 1fr; min-height: auto; }
+  .header-left { min-height: 60vh; padding: 48px 32px; }
+  .header-right { display: none; }
+  nav, main { padding-left: 24px; padding-right: 24px; }
+  .city-hero { grid-template-columns: 1fr; gap: 16px; }
+  .city-dates-block { text-align: left; }
+  .transfer-card { flex-direction: column; gap: 20px; }
+  .day-label-row { flex-wrap: wrap; gap: 8px; }
+  .day-theme { margin-left: 0; }
+  .tl-item { grid-template-columns: 52px 1px 1fr; }
+}
 </style>
 </head>
 <body>
 
-<header>
-  <div class="header-top">
-    <div>
-      <div class="header-tag">✦ Strategischer Reiseplan</div>
-      <h1>Japan<br>2025</h1>
+<!-- ═══════════ SITE HEADER ═══════════ -->
+<header class="site-header">
+  <div class="header-left">
+    <div class="header-eyebrow">GROUP OF FRIENDS · REISEPLAN 2026</div>
+    <div class="header-title-block">
+      <div class="header-title">
+        Japan<em>2026</em>
+      </div>
+      <p class="header-subtitle">
+        14 Tage · 6 Städte · 24. Oktober bis 7. November.<br>
+        Ryokans, Machiya, Onsen, Herbstlaub.<br>
+        Früh aufstehen, viel erleben.
+      </p>
     </div>
     <div class="header-meta">
-      <div class="badge">3–4 Personen</div>
-      <div class="badge">Früh­aufsteher</div>
-      <div class="badge">Mix aus allem</div>
+      <div class="meta-item">
+        <div class="meta-label">Gruppe</div>
+        <div class="meta-value">3–4 Personen</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Stil</div>
+        <div class="meta-value">Mix aus allem</div>
+      </div>
+      <div class="meta-item">
+        <div class="meta-label">Saison</div>
+        <div class="meta-value">🍁 Koyo Peak</div>
+      </div>
     </div>
   </div>
-  <div class="route-bar">
-    <span class="route-city">Tokio</span>
-    <span class="route-arrow">→</span>
-    <span class="route-city">Fuji/Hakone</span>
-    <span class="route-arrow">→</span>
-    <span class="route-city">Hiroshima</span>
-    <span class="route-arrow">→</span>
-    <span class="route-city">Kyoto</span>
-    <span class="route-arrow">→</span>
-    <span class="route-city">Takayama</span>
-    <span class="route-arrow">→</span>
-    <span class="route-city">Osaka</span>
+
+  <div class="header-right">
+    <div class="route-panel">
+      <div class="route-label">Route</div>
+
+      <a class="route-stop" onclick="showCity('tokio')">
+        <div class="stop-num">01</div>
+        <div>
+          <div class="stop-name">Tokyo</div>
+          <div class="stop-jp">東京</div>
+        </div>
+        <div>
+          <div class="stop-dates">24 — 27 Okt</div>
+          <div class="stop-nights">3 Nächte</div>
+        </div>
+      </a>
+
+      <a class="route-stop" onclick="showCity('hakone')">
+        <div class="stop-num">02</div>
+        <div>
+          <div class="stop-name">Hakone</div>
+          <div class="stop-jp">箱根</div>
+        </div>
+        <div>
+          <div class="stop-dates">27 — 29 Okt</div>
+          <div class="stop-nights">2 Nächte · 🍁 Peak</div>
+        </div>
+      </a>
+
+      <a class="route-stop" onclick="showCity('hiroshima')">
+        <div class="stop-num">03</div>
+        <div>
+          <div class="stop-name">Hiroshima</div>
+          <div class="stop-jp">広島</div>
+        </div>
+        <div>
+          <div class="stop-dates">29 — 30 Okt</div>
+          <div class="stop-nights">1 Nacht · Miyajima</div>
+        </div>
+      </a>
+
+      <a class="route-stop" onclick="showCity('kyoto')">
+        <div class="stop-num">04</div>
+        <div>
+          <div class="stop-name">Kyoto</div>
+          <div class="stop-jp">京都</div>
+        </div>
+        <div>
+          <div class="stop-dates">30 Okt — 2 Nov</div>
+          <div class="stop-nights">3 Nächte · 🍂</div>
+        </div>
+      </a>
+
+      <a class="route-stop" onclick="showCity('takayama')">
+        <div class="stop-num">05</div>
+        <div>
+          <div class="stop-name">Takayama</div>
+          <div class="stop-jp">高山</div>
+        </div>
+        <div>
+          <div class="stop-dates">2 — 5 Nov</div>
+          <div class="stop-nights">3 Nächte · 🍁 Peak</div>
+        </div>
+      </a>
+
+      <a class="route-stop" onclick="showCity('osaka')">
+        <div class="stop-num">06</div>
+        <div>
+          <div class="stop-name">Osaka</div>
+          <div class="stop-jp">大阪</div>
+        </div>
+        <div>
+          <div class="stop-dates">5 — 7 Nov</div>
+          <div class="stop-nights">2 Nächte</div>
+        </div>
+      </a>
+    </div>
   </div>
 </header>
 
+<!-- ═══════════ NAV ═══════════ -->
 <nav>
-  <button class="nav-btn active" onclick="showCity('tokio')">🗼 Tokio</button>
-  <button class="nav-btn" onclick="showCity('hakone')">🏔️ Hakone</button>
-  <button class="nav-btn" onclick="showCity('hiroshima')">⛩️ Hiroshima</button>
-  <button class="nav-btn" onclick="showCity('kyoto')">🍵 Kyoto</button>
-  <button class="nav-btn" onclick="showCity('takayama')">🏯 Takayama</button>
-  <button class="nav-btn" onclick="showCity('osaka')">🏮 Osaka</button>
+  <div class="nav-logo">Japan <span>2026</span></div>
+  <button class="nav-btn active" onclick="showCity('tokio',this)">Tokio</button>
+  <button class="nav-btn" onclick="showCity('hakone',this)">Hakone</button>
+  <button class="nav-btn" onclick="showCity('hiroshima',this)">Hiroshima</button>
+  <button class="nav-btn" onclick="showCity('kyoto',this)">Kyoto</button>
+  <button class="nav-btn" onclick="showCity('takayama',this)">Takayama</button>
+  <button class="nav-btn" onclick="showCity('osaka',this)">Osaka</button>
 </nav>
 
 <main>
 
-<!-- ═══════════════════════════════ TOKIO ═══════════════════════════════ -->
-<div class="city-section active" id="tokio">
-  <div class="city-header">
+<!-- ══════════════════════════════════════════════════
+     TOKIO
+══════════════════════════════════════════════════ -->
+<section class="city-section active" id="tokio">
+  <div class="city-hero">
     <div>
-      <div class="city-name">東京 Tokio</div>
-      <div class="city-dates">24. – 27. Mai · 3 Nächte · 3 volle Tage</div>
+      <div class="city-eyebrow">01 — Erste Station</div>
+      <div class="city-name-block">
+        <div class="city-name">Tokyo</div>
+        <div class="city-name-jp">東京</div>
+      </div>
     </div>
-    <div class="city-hotel">
-      <div class="hotel-label">Unterkunft</div>
-      <div class="hotel-name">hanare</div>
-      <div class="hotel-rating">⭐ 4.9 · Yanaka</div>
+    <div class="city-dates-block">
+      <div class="city-dates">24 — 27 Oktober</div>
+      <div class="city-nights">3 Nächte · 3 volle Tage</div>
     </div>
+  </div>
+
+  <div class="hotel-placeholder">
+    <div class="hotel-icon">🏨</div>
+    <div>
+      <div class="hotel-label-sm">Unterkunft</div>
+      <div class="hotel-name-placeholder">Hotel TBD · Yanaka / Nezu</div>
+    </div>
+    <div class="hotel-rating">⭐ Platzhalter</div>
   </div>
 
   <div class="tips-grid">
-    <div class="tip-card">
-      <div class="tip-emoji">🎫</div>
-      <div class="tip-title">Suica-Karte</div>
-      <div class="tip-text">Am Flughafen direkt kaufen. Für alle U-Bahnen, JR, Busse und Konbinis nutzbar.</div>
-    </div>
-    <div class="tip-card">
-      <div class="tip-emoji">📦</div>
-      <div class="tip-title">Gepäck vorausschicken</div>
-      <div class="tip-text">Takkyubin (Yamato) schickt Koffer zum nächsten Hotel. Sehr günstig, sehr zuverlässig.</div>
-    </div>
-    <div class="tip-card">
-      <div class="tip-emoji">🕐</div>
-      <div class="tip-title">teamLab</div>
-      <div class="tip-text">Tickets müssen vorab online gebucht werden! Borderless & Planets sind verschiedene Locations.</div>
-    </div>
-    <div class="tip-card">
-      <div class="tip-emoji">👘</div>
-      <div class="tip-title">Meiji-Schrein</div>
-      <div class="tip-text">Öffnet bei Sonnenaufgang. Vor 8 Uhr ist es absolut leer – danach kommen Schulklassen.</div>
-    </div>
+    <div class="tip-card"><div class="tip-emoji">🎫</div><div class="tip-title">Suica-Karte</div><div class="tip-text">Am Flughafen kaufen. Für alle U-Bahnen, JR, Busse und Konbinis nutzbar.</div></div>
+    <div class="tip-card"><div class="tip-emoji">🎟️</div><div class="tip-title">Vorab buchen</div><div class="tip-text">teamLab, Shibuya Sky, HEAD SPA Kuu – alle Tickets online vorab sichern!</div></div>
+    <div class="tip-card"><div class="tip-emoji">🥊</div><div class="tip-title">Sumo Morning Practice</div><div class="tip-text">Buchung via buysumotickets.com oder magicaltrip.com – jetzt reservieren!</div></div>
+    <div class="tip-card"><div class="tip-emoji">📦</div><div class="tip-title">Gepäck schicken</div><div class="tip-text">Takkyubin-Übergabe spätestens 26. Okt. bis 12 Uhr für Abholung am Folgetag nach Hakone.</div></div>
   </div>
 
   <!-- TAG 1 -->
-  <div class="day-card">
-    <div class="day-header">
-      <div>
-        <div class="day-label">Tag 1 — Ankunft & Yanaka</div>
-        <div class="day-theme">Ankommen, Viertel erkunden, erster Abend</div>
-      </div>
-      <div class="day-date">24. Mai</div>
+  <div class="day-block">
+    <div class="day-label-row">
+      <span class="day-num">Tag 01</span>
+      <span class="day-title">Ankunft & Yanaka</span>
+      <span class="day-date-tag">24. Oktober</span>
+      <span class="day-theme">Ankommen, schlendern, erster Abend</span>
     </div>
     <div class="timeline">
 
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">07:30</span></div>
-        <div class="content-col">
-          <div class="item-type type-transit"><span class="item-dot dot-transit"></span>Transit</div>
-          <div class="item-name">Narita → Nippori</div>
-          <div class="item-detail">Keisei Skyliner ab Narita Airport Terminal 1/2 → Nippori Station<br>Fahrtzeit: ca. 41 Min · ¥2.530 pro Person</div>
-          <div class="transit-pill">🚄 Keisei Skyliner · Abfahrt ca. alle 20 Min</div>
+      <div class="tl-item">
+        <div class="tl-time">07:30</div>
+        <div class="tl-line"><div class="tl-dot dot-transit"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-card">
+            <img class="item-img" src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=800&q=80" alt="Tokyo arrival" loading="lazy">
+            <div class="item-card-inner">
+              <div class="item-type type-transit">Transit</div>
+              <div class="item-name">Narita → Nippori</div>
+              <div class="item-detail">Keisei Skyliner ab Narita Airport → Nippori Station · 41 Min · ¥2.530 p.P.</div>
+              <div class="transit-pill">🚄 Keisei Skyliner · alle 20 Min</div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">08:30</span></div>
-        <div class="content-col">
-          <div class="item-type type-stay"><span class="item-dot dot-stay"></span>Check-in</div>
-          <div class="item-name">hanare · Yanaka</div>
-          <div class="item-detail">Gepäck abgeben, kurz frisch machen. Nippori Station ist 7 Min zu Fuß.</div>
-          <div class="item-tip">💡 Zimmer ab 15 Uhr – Gepäck kann früh abgegeben werden</div>
+      <div class="tl-item">
+        <div class="tl-time">09:00</div>
+        <div class="tl-line"><div class="tl-dot dot-cafe"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-card">
+            <img class="item-img" src="https://images.unsplash.com/photo-1513104890138-7c749659a591?w=800&q=80" alt="HAGISO Cafe" loading="lazy">
+            <div class="item-card-inner">
+              <div class="item-type type-cafe">Frühstück</div>
+              <div class="item-name">HAGISO Café · Yanaka</div>
+              <div class="item-detail">Schwestercafé von hanare. Lokale Atmosphäre, ruhig, kein Touristentrubel. Gepäck vorher im Hotel abgeben.</div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">09:00</span></div>
-        <div class="content-col">
-          <div class="item-type type-cafe"><span class="item-dot dot-cafe"></span>Frühstück</div>
-          <div class="item-name">HAGISO Café</div>
-          <div class="item-detail">Direkt neben hanare, das Schwestercafé des Hotels. Lokale Atmosphäre, ruhig, kein Touristentrubel.</div>
+      <div class="tl-item">
+        <div class="tl-time">10:00</div>
+        <div class="tl-line"><div class="tl-dot dot-sight"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-card">
+            <img class="item-img" src="https://images.unsplash.com/photo-1513407030348-c983a97b98d8?w=800&q=80" alt="Yanaka" loading="lazy">
+            <div class="item-card-inner">
+              <div class="item-type type-sight">Viertel</div>
+              <div class="item-name">Yanaka Ginza & Yanaka Cemetery</div>
+              <div class="item-detail">Zu Fuß erkunden: Yanaka Ginza Einkaufsstraße, alte Tempel, Keramikshops, Vintage-Läden. Kein Plan nötig – einfach laufen.</div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">10:00</span></div>
-        <div class="content-col">
-          <div class="item-type type-sight"><span class="item-dot dot-sight"></span>Viertel</div>
-          <div class="item-name">Yanaka Ginza & Yanaka Cemetery</div>
-          <div class="item-detail">Zu Fuß erkunden: Yanaka Ginza Einkaufsstraße, alte Tempel, Keramikshops, Vintage-Läden. Kein Plan nötig – einfach laufen.</div>
+      <div class="tl-item">
+        <div class="tl-time">12:30</div>
+        <div class="tl-line"><div class="tl-dot dot-food"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-simple">
+            <div class="item-type type-food">Mittagessen</div>
+            <div class="item-name" style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;margin-bottom:4px;">Yamamoto Menzou</div>
+            <div class="item-detail" style="font-size:12px;color:var(--ink2);">⭐ 4.4 · Udon-Nudeln · 1.000–2.000 ¥ · Lokaler Spot, früh = keine Schlange.</div>
+          </div>
         </div>
       </div>
 
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">12:30</span></div>
-        <div class="content-col">
-          <div class="item-type type-food"><span class="item-dot dot-food"></span>Mittagessen</div>
-          <div class="item-name">Yamamoto Menzou</div>
-          <div class="item-detail">⭐ 4.4 · Udon-Nudeln · 1.000–2.000 ¥ · In der Nähe von Yanaka. Lokaler Spot, keine langen Warteschlangen am frühen Mittag.</div>
+      <div class="tl-item">
+        <div class="tl-time">14:00</div>
+        <div class="tl-line"><div class="tl-dot dot-transit"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-simple">
+            <div class="item-type type-transit">Transit</div>
+            <div class="item-name" style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;margin-bottom:4px;">Nippori → Shibuya</div>
+            <div class="item-detail" style="font-size:12px;color:var(--ink2);">JR Yamanote Line · 25 Min · ¥220</div>
+          </div>
         </div>
       </div>
 
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">14:00</span></div>
-        <div class="content-col">
-          <div class="item-type type-transit"><span class="item-dot dot-transit"></span>Transit</div>
-          <div class="item-name">Nippori → Shibuya</div>
-          <div class="item-detail">JR Yamanote Line Richtung Shibuya · ca. 25 Min · ¥220</div>
+      <div class="tl-item">
+        <div class="tl-time">14:30</div>
+        <div class="tl-line"><div class="tl-dot dot-sight"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-card">
+            <img class="item-img" src="https://images.unsplash.com/photo-1570459027562-4a916cc6113f?w=800&q=80" alt="Gotokuji Temple" loading="lazy">
+            <div class="item-card-inner">
+              <div class="item-type type-sight">Tempel</div>
+              <div class="item-name">Götokuji Temple</div>
+              <div class="item-detail">Der berühmte Maneki-Neko-Tempel. Hunderte Glückskatzen-Figuren im grünen Herbstwald.</div>
+              <div class="transit-pill">🚃 Tokyu Setagaya Line ab Shibuya · 15 Min</div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">14:30</span></div>
-        <div class="content-col">
-          <div class="item-type type-sight"><span class="item-dot dot-sight"></span>Sehenswürdigkeit</div>
-          <div class="item-name">Shibuya Alle-Gehen-Kreuzung</div>
-          <div class="item-detail">Kurzer Walk-through – am besten aus dem Starbucks-Fenster oder vom Magnet-Dachterrace beobachten.</div>
+      <div class="tl-item">
+        <div class="tl-time">17:00</div>
+        <div class="tl-line"><div class="tl-dot dot-cafe"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-simple">
+            <div class="item-type type-cafe">Café</div>
+            <div class="item-name" style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;margin-bottom:4px;">Fuglen Tokyo · Tomigaya</div>
+            <div class="item-detail" style="font-size:12px;color:var(--ink2);">⭐ 4.3 · Norwegische Rösterei neben Yoyogi Park. Perfekt nach dem Tempel-Besuch.</div>
+          </div>
         </div>
       </div>
 
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">15:15</span></div>
-        <div class="content-col">
-          <div class="item-type type-sight"><span class="item-dot dot-sight"></span>Tempel</div>
-          <div class="item-name">Götokuji Temple</div>
-          <div class="item-detail">Der berühmte Maneki-Neko-Tempel. Hunderte Glückskatzen-Figuren. 15 Min mit Tokyu Setagaya Line ab Shibuya.</div>
-          <div class="transit-pill">🚃 Tokyu Setagaya Line · ca. 15 Min</div>
+      <div class="tl-item">
+        <div class="tl-time">19:00</div>
+        <div class="tl-line"><div class="tl-dot dot-food"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-card">
+            <img class="item-img" src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=800&q=80" alt="Omoide Yokocho" loading="lazy">
+            <div class="item-card-inner">
+              <div class="item-type type-food">Abendessen</div>
+              <div class="item-name">Omoide Yokocho · Shinjuku</div>
+              <div class="item-detail">⭐ 4.2 · Enge Gassen mit rauchigen Yakitori-Bars. Der klassische erste Abend in Tokio.</div>
+              <div class="transit-pill">🚃 JR Yamanote → Shinjuku · 10 Min · ¥160</div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">17:00</span></div>
-        <div class="content-col">
-          <div class="item-type type-cafe"><span class="item-dot dot-cafe"></span>Café</div>
-          <div class="item-name">Fuglen Tokyo · Shibuya/Tomigaya</div>
-          <div class="item-detail">⭐ 4.3 · Norwegische Kaffeerösterei, ruhige Seitenstraße neben Yoyogi Park. Perfekt nach dem Tempel.</div>
+      <div class="tl-item">
+        <div class="tl-time">21:00</div>
+        <div class="tl-line"><div class="tl-dot dot-wishlist"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-simple">
+            <div class="item-type type-wishlist">✓ Wishlist</div>
+            <div class="item-name" style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;margin-bottom:4px;">Karaoke · Shinjuku</div>
+            <div class="item-detail" style="font-size:12px;color:var(--ink2);">Karaoke-kan oder Big Echo – direkt in Shinjuku, viele Sprachen, private Rooms. 🎤</div>
+            <div class="wishlist-tag">🎤 Karaoke</div>
+          </div>
         </div>
       </div>
 
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">18:30</span></div>
-        <div class="content-col">
-          <div class="item-type type-sight"><span class="item-dot dot-sight"></span>Aussicht</div>
-          <div class="item-name">Shibuya Sky</div>
-          <div class="item-detail">⭐ 4.6 · Dachterrasse Shibuya Scramble Square. Tickets vorab online buchen! Sonnenuntergang ca. 18:45 Uhr im Mai.</div>
-          <div class="item-tip">💡 Ticket online ca. ¥2.000 – lohnt sich unbedingt für den Sonnenuntergang</div>
-        </div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">20:00</span></div>
-        <div class="content-col">
-          <div class="item-type type-food"><span class="item-dot dot-food"></span>Abendessen</div>
-          <div class="item-name">Omoide Yokocho · Shinjuku</div>
-          <div class="item-detail">⭐ 4.2 · Enge Gassen mit rauchigen Yakitori-Bars. Der klassische erste Abend in Tokio. 10 Min mit JR Yamanote ab Shibuya.</div>
-          <div class="transit-pill">🚃 JR Yamanote → Shinjuku · 10 Min · ¥160</div>
-        </div>
-      </div>
-
-    </div>
-    <div class="legend">
-      <div class="legend-item"><span class="item-dot dot-transit"></span> Transit</div>
-      <div class="legend-item"><span class="item-dot dot-sight"></span> Sehenswürdigkeit</div>
-      <div class="legend-item"><span class="item-dot dot-cafe"></span> Café / Frühstück</div>
-      <div class="legend-item"><span class="item-dot dot-food"></span> Essen</div>
-      <div class="legend-item"><span class="item-dot dot-stay"></span> Hotel</div>
     </div>
   </div>
 
   <!-- TAG 2 -->
-  <div class="day-card">
-    <div class="day-header">
-      <div>
-        <div class="day-label">Tag 2 — Meiji, Harajuku & Ostseite</div>
-        <div class="day-theme">Schrein am Morgen · Design & Kunst am Nachmittag</div>
-      </div>
-      <div class="day-date">25. Mai</div>
+  <div class="day-block">
+    <div class="day-label-row">
+      <span class="day-num">Tag 02</span>
+      <span class="day-title">Sumo · Asakusa · teamLab</span>
+      <span class="day-date-tag">25. Oktober</span>
+      <span class="day-theme">Tradition am Morgen · Kunst am Abend</span>
     </div>
     <div class="timeline">
 
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">07:00</span></div>
-        <div class="content-col">
-          <div class="item-type type-sight"><span class="item-dot dot-sight"></span>Schrein</div>
-          <div class="item-name">Meiji-Schrein</div>
-          <div class="item-detail">⭐ 4.6 · Bei Sonnenaufgang quasi allein dort. Ruhig, beeindruckend, 30–45 Min einplanen. Dann Harajuku-Gate-Ausgang.</div>
-          <div class="transit-pill">🚃 Nippori → Harajuku · JR Yamanote · 30 Min · ¥220</div>
+      <div class="tl-item">
+        <div class="tl-time">07:00</div>
+        <div class="tl-line"><div class="tl-dot dot-wishlist"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-card">
+            <img class="item-img" src="https://images.unsplash.com/photo-1593766788306-28561086694e?w=800&q=80" alt="Sumo" loading="lazy">
+            <div class="item-card-inner">
+              <div class="item-type type-wishlist">✓ Wishlist</div>
+              <div class="item-name">Sumo Morning Practice · Ryogoku</div>
+              <div class="item-detail">Ringer trainieren täglich früh in den Ryogoku-Ställen. Sehr nah dran, sehr authentisch. Vorab buchen via buysumotickets.com</div>
+              <div class="transit-pill">🚃 Nippori → Ryogoku · JR Sobu Line · 10 Min</div>
+              <div class="wishlist-tag">🏋️ Sumoringen</div>
+              <div class="item-tip">💡 Jetzt buchen – Plätze sind begrenzt!</div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">08:30</span></div>
-        <div class="content-col">
-          <div class="item-type type-cafe"><span class="item-dot dot-cafe"></span>Frühstück</div>
-          <div class="item-name">Higuma Doughnuts × Coffee Wrights</div>
-          <div class="item-detail">⭐ 4.2 · Omotesando · Artisanal Doughnuts, handgebrühter Kaffee. Ruhige Terrasse für den Morgen.</div>
+      <div class="tl-item">
+        <div class="tl-time">09:30</div>
+        <div class="tl-line"><div class="tl-dot dot-sight"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-card">
+            <img class="item-img" src="https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?w=800&q=80" alt="Asakusa" loading="lazy">
+            <div class="item-card-inner">
+              <div class="item-type type-sight">Tempel</div>
+              <div class="item-name">Senso-ji · Asakusa</div>
+              <div class="item-detail">⭐ 4.5 · Tokios ältester Tempel. Tagsüber schön belebt. Nakamise-Einkaufsstraße für Souvenirs.</div>
+              <div class="transit-pill">🚃 Ryogoku → Asakusa · 5 Min</div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">09:30</span></div>
-        <div class="content-col">
-          <div class="item-type type-sight"><span class="item-dot dot-sight"></span>Viertel</div>
-          <div class="item-name">Omote-Sando Avenue</div>
-          <div class="item-detail">Tokios Champs-Élysées – Flagship Stores internationaler Designer, schöne Architektur. Morgens noch leer und fotogen.</div>
+      <div class="tl-item">
+        <div class="tl-time">11:30</div>
+        <div class="tl-line"><div class="tl-dot dot-food"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-simple">
+            <div class="item-type type-food">Lunch / Snacks</div>
+            <div class="item-name" style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;margin-bottom:4px;">Tsukiji Fish Market · Außenmarkt</div>
+            <div class="item-detail" style="font-size:12px;color:var(--ink2);">Frischer Sushi-Snack, Tamagoyaki, Meeresfrüchte direkt vom Markt.</div>
+            <div class="transit-pill">🚃 Asakusa → Tsukijishijo · Toei Line · 15 Min</div>
+          </div>
         </div>
       </div>
 
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">10:30</span></div>
-        <div class="content-col">
-          <div class="item-type type-cafe"><span class="item-dot dot-cafe"></span>Kaffee</div>
-          <div class="item-name">KOFFEE MAMEYA · Omotesando</div>
-          <div class="item-detail">⭐ 4.6 · Eine der besten Kaffeebars Tokios. Kleiner Laden, kurze Schlange – kommt früh.</div>
+      <div class="tl-item">
+        <div class="tl-time">13:00</div>
+        <div class="tl-line"><div class="tl-dot dot-sight"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-card">
+            <img class="item-img" src="https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?w=800&q=80" alt="Hamarikyu Park" loading="lazy">
+            <div class="item-card-inner">
+              <div class="item-type type-sight">Park</div>
+              <div class="item-name">Hamarikyu-Park</div>
+              <div class="item-detail">⭐ 4.4 · Japanischer Garten am Wasser mit Teehaus. Im Oktober: erste Herbstfarben 🍁</div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">11:30</span></div>
-        <div class="content-col">
-          <div class="item-type type-sight"><span class="item-dot dot-sight"></span>Viertel</div>
-          <div class="item-name">Daikanyama & Kyu Asakura House</div>
-          <div class="item-detail">Historisches Herrenhaus (⭐ 4.4) + Tsutaya Buchhandlung. Dann Nakameguro-Kanal entlang schlendern.</div>
-          <div class="transit-pill">🚃 Omotesando → Daikanyama · Tokyu Toyoko · 8 Min</div>
+      <div class="tl-item">
+        <div class="tl-time">14:30</div>
+        <div class="tl-line"><div class="tl-dot dot-shop"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-simple">
+            <div class="item-type type-shop">Shopping</div>
+            <div class="item-name" style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;margin-bottom:4px;">Kappabashi-Straße</div>
+            <div class="item-detail" style="font-size:12px;color:var(--ink2);">⭐ 4.3 · Tokios Küchenzubehör-Straße. Keramik, Messer, Kunstplastik-Food als Souvenir.</div>
+          </div>
         </div>
       </div>
 
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">13:00</span></div>
-        <div class="content-col">
-          <div class="item-type type-food"><span class="item-dot dot-food"></span>Mittagessen</div>
-          <div class="item-name">Nakameguro – lokales Restaurant</div>
-          <div class="item-detail">Viele gute kleine Restaurants entlang des Kanals. Empfehlung: Soba oder Ramen in einer der Seitenstraßen.</div>
-        </div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">14:30</span></div>
-        <div class="content-col">
-          <div class="item-type type-activity"><span class="item-dot dot-activity"></span>Wellness</div>
-          <div class="item-name">HEAD SPA Kuu · Omotesando</div>
-          <div class="item-detail">⭐ 5.0 · Buchung vorab unbedingt nötig! Japanese Head Spa – einzigartiges Erlebnis. Ca. 60–90 Min.</div>
-          <div class="item-tip">💡 Online-Buchung oft Wochen im Voraus – jetzt buchen!</div>
-          <div class="transit-pill">🚃 Nakameguro → Omotesando · Tokyo Metro · 10 Min</div>
-        </div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">16:30</span></div>
-        <div class="content-col">
-          <div class="item-type type-activity"><span class="item-dot dot-activity"></span>Kunst</div>
-          <div class="item-name">teamLab Planets · Toyosu</div>
-          <div class="item-detail">⭐ 4.5 · Immersive Kunstinstallationen. Abends ist es beeindruckender (Lichteffekte). Ticket vorab online buchen!</div>
-          <div class="transit-pill">🚃 Omotesando → Toyosu · Tokyo Metro Ginza Line + Yurikamome · 30 Min</div>
-        </div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">19:30</span></div>
-        <div class="content-col">
-          <div class="item-type type-cafe"><span class="item-dot dot-cafe"></span>Bar</div>
-          <div class="item-name">Grandfather's · Shimokitazawa</div>
-          <div class="item-detail">⭐ 4.6 · Gemütliche Bar, lokale Atmosphäre, kein Touristen-Trubel.</div>
-          <div class="transit-pill">🚃 Toyosu → Shimokitazawa · Yurikamome + Tokyu Setagaya · 40 Min</div>
+      <div class="tl-item">
+        <div class="tl-time">17:00</div>
+        <div class="tl-line"><div class="tl-dot dot-activity"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-card">
+            <img class="item-img" src="https://images.unsplash.com/photo-1633613286848-e6f43bbafb8d?w=800&q=80" alt="teamLab" loading="lazy">
+            <div class="item-card-inner">
+              <div class="item-type type-activity">Kunst · Abends</div>
+              <div class="item-name">teamLab Planets · Toyosu</div>
+              <div class="item-detail">⭐ 4.5 · Immersive Kunstinstallationen. Abends viel beeindruckender als tagsüber. Ticket vorab buchen!</div>
+              <div class="transit-pill">🚃 → Toyosu · Tokyo Metro + Yurikamome · 30 Min</div>
+              <div class="item-tip">💡 Ticket online vorab – oft ausverkauft!</div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -806,1127 +1142,1369 @@
   </div>
 
   <!-- TAG 3 -->
-  <div class="day-card">
-    <div class="day-header">
-      <div>
-        <div class="day-label">Tag 3 — Asakusa, Ginza & Shimokitazawa</div>
-        <div class="day-theme">Historisch am Morgen · Vintage am Nachmittag</div>
+  <div class="day-block">
+    <div class="day-label-row">
+      <span class="day-num">Tag 03</span>
+      <span class="day-title">Head Spa · Design · Shibuya bei Nacht</span>
+      <span class="day-date-tag">26. Oktober</span>
+      <span class="day-theme">Wellness · Omotesando · Shibuya Crossing abends</span>
+    </div>
+
+    <div class="luggage-card">
+      <span>📦</span>
+      <span><strong>Gepäck-Reminder:</strong> Heute bis 12:00 Uhr Koffer beim Konbini für Takkyubin nach Hakone aufgeben! Ankunft morgen im Ryokan.</span>
+    </div>
+
+    <div class="timeline">
+
+      <div class="tl-item">
+        <div class="tl-time">08:00</div>
+        <div class="tl-line"><div class="tl-dot dot-cafe"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-simple">
+            <div class="item-type type-cafe">Kaffee</div>
+            <div class="item-name" style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;margin-bottom:4px;">KOFFEE MAMEYA · Omotesando</div>
+            <div class="item-detail" style="font-size:12px;color:var(--ink2);">⭐ 4.6 · Früh = keine Schlange. Eine der besten Kaffeebars Tokios.</div>
+          </div>
+        </div>
       </div>
-      <div class="day-date">26. Mai</div>
+
+      <div class="tl-item">
+        <div class="tl-time">09:00</div>
+        <div class="tl-line"><div class="tl-dot dot-sight"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-card">
+            <img class="item-img" src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=800&q=80" alt="Daikanyama" loading="lazy">
+            <div class="item-card-inner">
+              <div class="item-type type-sight">Viertel</div>
+              <div class="item-name">Daikanyama · Kyu Asakura House · Nakameguro</div>
+              <div class="item-detail">Historisches Herrenhaus (⭐ 4.4) + Tsutaya Buchhandlung. Dann Nakameguro-Kanal entlang – Herbstlaub über dem Wasser 🍁</div>
+              <div class="transit-pill">🚃 Omotesando → Daikanyama · Tokyu Toyoko · 8 Min</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time">14:30</div>
+        <div class="tl-line"><div class="tl-dot dot-wishlist"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-card">
+            <img class="item-img" src="https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?w=800&q=80" alt="Head Spa" loading="lazy">
+            <div class="item-card-inner">
+              <div class="item-type type-wishlist">✓ Wishlist</div>
+              <div class="item-name">HEAD SPA Kuu · Omotesando</div>
+              <div class="item-detail">⭐ 5.0 · Japanese Head Spa · 60–90 Min. Unbedingt Wochen vorher online buchen!</div>
+              <div class="transit-pill">🚃 Nakameguro → Omotesando · Tokyo Metro · 10 Min</div>
+              <div class="wishlist-tag">💆 Head Spa</div>
+              <div class="item-tip">💡 Jetzt buchen – oft Wochen ausgebucht!</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time">17:30</div>
+        <div class="tl-line"><div class="tl-dot dot-sight"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-card">
+            <img class="item-img" src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=800&q=80" alt="Shibuya Sky" loading="lazy">
+            <div class="item-card-inner">
+              <div class="item-type type-sight">Aussicht · Sonnenuntergang</div>
+              <div class="item-name">Shibuya Sky</div>
+              <div class="item-detail">⭐ 4.6 · Dachterrasse Shibuya Scramble Square. Sonnenuntergang Ende Oktober ca. 17:15 Uhr. Ticket vorab! ¥2.000</div>
+              <div class="transit-pill">🚃 Omotesando → Shibuya · 5 Min</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time">19:30</div>
+        <div class="tl-line"><div class="tl-dot dot-sight"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-card">
+            <img class="item-img" src="https://images.unsplash.com/photo-1542051841857-5f90071e7989?w=800&q=80" alt="Shibuya Crossing" loading="lazy">
+            <div class="item-card-inner">
+              <div class="item-type type-sight">Abends · Nachtleben</div>
+              <div class="item-name">Shibuya Crossing bei Nacht</div>
+              <div class="item-detail">⭐ 4.5 · Bewusst abends eingeplant – Neonlichter, Menschenmassen, einzigartiger Energie. Danach Abendessen in Shibuya.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     HAKONE
+══════════════════════════════════════════════════ -->
+<section class="city-section" id="hakone">
+  <div class="city-hero">
+    <div>
+      <div class="city-eyebrow">02 — 🍁 Koyo Peak</div>
+      <div class="city-name-block">
+        <div class="city-name">Hakone</div>
+        <div class="city-name-jp">箱根</div>
+      </div>
+    </div>
+    <div class="city-dates-block">
+      <div class="city-dates">27 — 29 Oktober</div>
+      <div class="city-nights">2 Nächte · Fuji & Onsen</div>
+    </div>
+  </div>
+
+  <div class="hotel-placeholder">
+    <div class="hotel-icon">♨️</div>
+    <div>
+      <div class="hotel-label-sm">Unterkunft · Ryokan</div>
+      <div class="hotel-name-placeholder">Hotel TBD · Hakone</div>
+    </div>
+    <div class="hotel-rating">⭐ Platzhalter</div>
+  </div>
+
+  <div class="koyo-badge">
+    <span class="koyo-emoji">🍁</span>
+    <span><strong>Koyo Peak:</strong> Ende Oktober ist Hakone und die Fuji Five Lakes auf dem absoluten Höhepunkt der Herbstfärbung. Chureito Pagoda mit rotem Laub und Fuji im Hintergrund – ein Bild wie aus dem Kalender.</span>
+  </div>
+
+  <div class="transfer-card">
+    <div class="transfer-icon">🚄</div>
+    <div class="transfer-info">
+      <div class="transfer-route">Tokio → Hakone</div>
+      <div class="transfer-meta">Shinjuku → Kawaguchiko (Fuji) · JR Chuo + Fuji Kyuko<br>dann Kawaguchiko → Hakone Miyanoshita</div>
+    </div>
+    <div class="transfer-times">
+      <div class="t-time"><div class="t-hour">08:00</div><div class="t-label">Shinjuku</div></div>
+      <div class="t-arrow">→</div>
+      <div class="t-dur">~2 Std + Bus</div>
+      <div class="t-arrow">→</div>
+      <div class="t-time"><div class="t-hour">17:30</div><div class="t-label">Hakone</div></div>
+    </div>
+  </div>
+
+  <div class="day-block">
+    <div class="day-label-row">
+      <span class="day-num">Tag 04</span>
+      <span class="day-title">Chureito · Fuji-Panorama · Anreise</span>
+      <span class="day-date-tag">27. Oktober</span>
+      <span class="day-theme">Fuji + Koyo · dann Ryokan</span>
     </div>
     <div class="timeline">
 
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">07:00</span></div>
-        <div class="content-col">
-          <div class="item-type type-sight"><span class="item-dot dot-sight"></span>Tempel</div>
-          <div class="item-name">Asakusa-Schrein & Senso-ji</div>
-          <div class="item-detail">⭐ 4.5 · Tokios ältester Tempel. Vor 8 Uhr fast menschenleer. Nakamise-Einkaufsstraße danach für Souvenirs.</div>
-          <div class="transit-pill">🚃 Nippori → Asakusa · Keisei Line · 8 Min · ¥170</div>
+      <div class="tl-item">
+        <div class="tl-time">08:00</div>
+        <div class="tl-line"><div class="tl-dot dot-transit"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-simple">
+            <div class="item-type type-transit">Abreise Tokio</div>
+            <div class="item-name" style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;margin-bottom:4px;">Shinjuku → Kawaguchiko</div>
+            <div class="item-detail" style="font-size:12px;color:var(--ink2);">JR Chuo Line → Otsuki, dann Fuji Kyuko Line → Kawaguchiko · ~2 Std · ¥1.360</div>
+          </div>
         </div>
       </div>
 
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">08:30</span></div>
-        <div class="content-col">
-          <div class="item-type type-food"><span class="item-dot dot-food"></span>Frühstück</div>
-          <div class="item-name">Tsukiji Fish Market · Außenmarkt</div>
-          <div class="item-detail">⭐ 4.6 · Frühstück mit frischem Sushi, Tamagoyaki, Meeresfrüchten. Der Außenmarkt öffnet früh.</div>
-          <div class="transit-pill">🚃 Asakusa → Tsukijishijo · Toei Asakusa Line · 15 Min · ¥180</div>
+      <div class="tl-item">
+        <div class="tl-time">10:30</div>
+        <div class="tl-line"><div class="tl-dot dot-sight"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-card">
+            <img class="item-img" src="https://images.unsplash.com/photo-1490806843957-31f4c9a91c65?w=800&q=80" alt="Chureito Pagoda" loading="lazy">
+            <div class="item-card-inner">
+              <div class="item-type type-sight">🍁 Koyo Highlight</div>
+              <div class="item-name">Chureito Pagoda</div>
+              <div class="item-detail">⭐ 4.7 · 400 Stufen · Fuji + Herbstlaub + Pagode = das ikonischste Bild Japans. Ende Oktober absoluter Peak.</div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">10:00</span></div>
-        <div class="content-col">
-          <div class="item-type type-sight"><span class="item-dot dot-sight"></span>Park</div>
-          <div class="item-name">Hamarikyu-Park</div>
-          <div class="item-detail">⭐ 4.4 · Wunderschöner japanischer Garten direkt am Wasser. Teehaus im Park. 15 Min Fußweg von Tsukiji.</div>
+      <div class="tl-item">
+        <div class="tl-time">12:00</div>
+        <div class="tl-line"><div class="tl-dot dot-sight"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-card">
+            <img class="item-img" src="https://images.unsplash.com/photo-1578271887552-5ac3a72752bc?w=800&q=80" alt="Oishi Park" loading="lazy">
+            <div class="item-card-inner">
+              <div class="item-type type-sight">🍁 Koyo Highlight</div>
+              <div class="item-name">Oishi Park · Momiji Tunnel</div>
+              <div class="item-detail">⭐ 4.4 · Flacher Fuji-Blick vom Kawaguchiko-See. Momiji Tunnel mit roten Ahornblättern über der Straße. Ende Oktober Peak!</div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">11:30</span></div>
-        <div class="content-col">
-          <div class="item-type type-shop"><span class="item-dot dot-shop"></span>Shopping</div>
-          <div class="item-name">Kappabashi-Straße</div>
-          <div class="item-detail">⭐ 4.3 · Tokios Küchenzubehör-Straße. Perfekt für japanische Keramik, Messer, Kunstplastik-Food als Souvenir.</div>
-          <div class="transit-pill">🚃 Shiodome → Tawaramachi · Toei Oedo + Ginza Line · 20 Min</div>
+      <div class="tl-item">
+        <div class="tl-time">13:30</div>
+        <div class="tl-line"><div class="tl-dot dot-sight"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-simple">
+            <div class="item-type type-sight">Freilichtmuseum</div>
+            <div class="item-name" style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;margin-bottom:4px;">Saiko Iyashi-no-Sato Nenba</div>
+            <div class="item-detail" style="font-size:12px;color:var(--ink2);">⭐ 4.4 · Historisches Dorf mit Gassho-Häusern und Fuji-Blick. Weniger überlaufen als Kawaguchiko.</div>
+          </div>
         </div>
       </div>
 
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">13:00</span></div>
-        <div class="content-col">
-          <div class="item-type type-cafe"><span class="item-dot dot-cafe"></span>Mittagessen</div>
-          <div class="item-name">BONGENCOFFEE Ginza</div>
-          <div class="item-detail">⭐ 4.4 · Specialty Coffee, 1–1.000 ¥ · Ruhige Ginza-Seitenstraße. Danach durch Ginza schlendern.</div>
-          <div class="transit-pill">🚃 Tawaramachi → Ginza · Tokyo Metro Ginza Line · 12 Min</div>
+      <div class="tl-item">
+        <div class="tl-time">15:30</div>
+        <div class="tl-line"><div class="tl-dot dot-transit"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-simple">
+            <div class="item-type type-transit">Transit</div>
+            <div class="item-name" style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;margin-bottom:4px;">Kawaguchiko → Hakone</div>
+            <div class="item-detail" style="font-size:12px;color:var(--ink2);">Bus nach Gotemba, dann Hakone Tozan Bahn. Ca. 90 Min.</div>
+          </div>
         </div>
       </div>
 
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">14:30</span></div>
-        <div class="content-col">
-          <div class="item-type type-sight"><span class="item-dot dot-sight"></span>Viertel</div>
-          <div class="item-name">Shimokitazawa</div>
-          <div class="item-detail">Vintage-Läden, Vinyl-Shops, kleine Theater. Nachmittag hier verbringen – Shirube Restaurant für Izakaya-Abend.</div>
-          <div class="transit-pill">🚃 Ginza → Shimokitazawa · Ginza Line + Keio Inokashira · 30 Min</div>
-        </div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">16:00</span></div>
-        <div class="content-col">
-          <div class="item-type type-activity"><span class="item-dot dot-activity"></span>Kunst</div>
-          <div class="item-name">teamLab Borderless · Azabudai Hills</div>
-          <div class="item-detail">⭐ 4.6 · Neuer Standort seit 2024. Größer als Planets, andere Installationen. Ticket vorab buchen!</div>
-          <div class="transit-pill">🚃 Shimokitazawa → Roppongi · 30 Min</div>
-          <div class="item-tip">💡 Nur eines von beiden buchen – Planets oder Borderless reicht für einen Trip</div>
-        </div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">19:30</span></div>
-        <div class="content-col">
-          <div class="item-type type-food"><span class="item-dot dot-food"></span>Abendessen</div>
-          <div class="item-name">Shirube · Shimokitazawa</div>
-          <div class="item-detail">⭐ 4.2 · Izakaya-Küche, 4.000–5.000 ¥ · Lokaler Izakaya-Klassiker in Shimokitazawa. Reservierung empfohlen.</div>
+      <div class="tl-item">
+        <div class="tl-time">17:30</div>
+        <div class="tl-line"><div class="tl-dot dot-wishlist"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-card">
+            <img class="item-img" src="https://images.unsplash.com/photo-1576013551627-0cc20b96c2a7?w=800&q=80" alt="Onsen Ryokan" loading="lazy">
+            <div class="item-card-inner">
+              <div class="item-type type-wishlist">✓ Wishlist</div>
+              <div class="item-name">Check-in Ryokan · Onsen</div>
+              <div class="item-detail">Einchecken, Yukata anziehen, Onsen genießen, Kaiseki-Dinner. Der erste echte Ryokan-Abend eurer Reise.</div>
+              <div class="wishlist-tag">♨️ Onsen</div>
+              <div class="wishlist-tag" style="margin-left:4px;">🏯 Ryokan</div>
+              <div class="item-tip">💡 Yukata anziehen und abends im Ryokan bleiben – das ist der Punkt!</div>
+            </div>
+          </div>
         </div>
       </div>
 
     </div>
   </div>
-</div>
 
-<!-- ═══════════════════════════════ HAKONE ═══════════════════════════════ -->
-<div class="city-section" id="hakone">
-  <div class="city-header">
+  <div class="day-block">
+    <div class="day-label-row">
+      <span class="day-num">Tag 05</span>
+      <span class="day-title">Hakone Rundfahrt</span>
+      <span class="day-date-tag">28. Oktober</span>
+      <span class="day-theme">Shiraito · Seilbahn · Ashinoko-See</span>
+    </div>
+
+    <div class="luggage-card">
+      <span>📦</span>
+      <span><strong>Gepäck-Reminder:</strong> Heute bis 12:00 Uhr Koffer für Takkyubin nach Hiroshima/Miyajima aufgeben.</span>
+    </div>
+
+    <div class="timeline">
+
+      <div class="tl-item">
+        <div class="tl-time">07:30</div>
+        <div class="tl-line"><div class="tl-dot dot-food"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-simple">
+            <div class="item-type type-food">Frühstück</div>
+            <div class="item-name" style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;margin-bottom:4px;">Ryokan-Frühstück</div>
+            <div class="item-detail" style="font-size:12px;color:var(--ink2);">Traditionelles japanisches Frühstück: Miso, Fisch, Tofu, Reis. Nicht auslassen!</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time">09:00</div>
+        <div class="tl-line"><div class="tl-dot dot-sight"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-card">
+            <img class="item-img" src="https://images.unsplash.com/photo-1565689157206-0fddef7589a2?w=800&q=80" alt="Shiraito Waterfall" loading="lazy">
+            <div class="item-card-inner">
+              <div class="item-type type-sight">🍁 Natur</div>
+              <div class="item-name">Shiraito-Wasserfall</div>
+              <div class="item-detail">⭐ 4.4 · UNESCO-Welterbe nahe Fuji. Breite Wasserwand, im Oktober von rotem Laub gerahmt. Sehr fotogen.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time">11:00</div>
+        <div class="tl-line"><div class="tl-dot dot-sight"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-card">
+            <img class="item-img" src="https://images.unsplash.com/photo-1503220317375-aaad61436b1b?w=800&q=80" alt="Hakone Ropeway" loading="lazy">
+            <div class="item-card-inner">
+              <div class="item-type type-sight">Panorama</div>
+              <div class="item-name">Hakone Ropeway · Owakudani</div>
+              <div class="item-detail">Seilbahn über das aktive Vulkangebiet Owakudani. Schwarze Eier kochen und essen! Dann hinunter zum Ashinoko-See.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time">13:00</div>
+        <div class="tl-line"><div class="tl-dot dot-sight"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-simple">
+            <div class="item-type type-sight">See</div>
+            <div class="item-name" style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;margin-bottom:4px;">Ashinoko-See · Hakone Cruise</div>
+            <div class="item-detail" style="font-size:12px;color:var(--ink2);">Sightseeing Cruise mit Fuji-Blick. Im Hakone Free Pass inklusive. 🍁 Herbstlaub an den Ufern.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time">15:00</div>
+        <div class="tl-line"><div class="tl-dot dot-stay"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-simple">
+            <div class="item-type type-stay">Ryokan · Onsen</div>
+            <div class="item-name" style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;margin-bottom:4px;">Früh zurück · Nachmittags-Onsen</div>
+            <div class="item-detail" style="font-size:12px;color:var(--ink2);">Onsen nachmittags ist weniger voll als abends. Letzter Ryokan-Abend genießen.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     HIROSHIMA
+══════════════════════════════════════════════════ -->
+<section class="city-section" id="hiroshima">
+  <div class="city-hero">
     <div>
-      <div class="city-name">箱根 Hakone</div>
-      <div class="city-dates">27. – 29. Mai · 2 Nächte</div>
+      <div class="city-eyebrow">03 — Miyajima-Übernachtung</div>
+      <div class="city-name-block">
+        <div class="city-name">Hiroshima</div>
+        <div class="city-name-jp">広島</div>
+      </div>
     </div>
-    <div class="city-hotel">
-      <div class="hotel-label">Unterkunft</div>
-      <div class="hotel-name">Nazuna Hakone</div>
-      <div class="hotel-rating">⭐ 4.7 · Miyanoshita</div>
+    <div class="city-dates-block">
+      <div class="city-dates">29 — 30 Oktober</div>
+      <div class="city-nights">1 Nacht · auf Miyajima-Insel</div>
     </div>
   </div>
 
-  <div class="shinkansen-card">
-    <div class="shinkansen-icon">🚄</div>
-    <div class="shinkansen-info">
-      <div class="shinkansen-route">Tokio → Odawara</div>
-      <div class="shinkansen-meta">JR Tokaido Shinkansen Kodama · Shinjuku → Odawara<br>Dann Hakone Tozan Bahn nach Miyanoshita</div>
+  <div class="hotel-placeholder">
+    <div class="hotel-icon">⛩️</div>
+    <div>
+      <div class="hotel-label-sm">Unterkunft · Ryokan · Miyajima-Insel</div>
+      <div class="hotel-name-placeholder">Hotel TBD · Miyajima</div>
     </div>
-    <div class="shinkansen-times">
-      <div class="stime">
-        <div class="stime-hour">08:00</div>
-        <div class="stime-label">Shinjuku</div>
+    <div class="hotel-rating">⭐ Platzhalter</div>
+  </div>
+
+  <div class="transfer-card">
+    <div class="transfer-icon">🚄</div>
+    <div class="transfer-info">
+      <div class="transfer-route">Hakone → Hiroshima</div>
+      <div class="transfer-meta">Miyanoshita → Odawara (Hakone Tozan, 30 Min)<br>Odawara → Hiroshima · Nozomi Shinkansen · im JR Pass</div>
+    </div>
+    <div class="transfer-times">
+      <div class="t-time"><div class="t-hour">08:30</div><div class="t-label">Odawara</div></div>
+      <div class="t-arrow">→</div>
+      <div class="t-dur">~2 Std 40 Min</div>
+      <div class="t-arrow">→</div>
+      <div class="t-time"><div class="t-hour">11:10</div><div class="t-label">Hiroshima</div></div>
+    </div>
+  </div>
+
+  <div class="day-block">
+    <div class="day-label-row">
+      <span class="day-num">Tag 06</span>
+      <span class="day-title">Peace Memorial · Okonomiyaki · Miyajima</span>
+      <span class="day-date-tag">29. Oktober</span>
+      <span class="day-theme">Geschichte · Essen · Insel bei Nacht</span>
+    </div>
+
+    <div class="luggage-card">
+      <span>📦</span>
+      <span><strong>Gepäck-Reminder:</strong> Heute bis 12:00 Uhr Koffer für Takkyubin nach Kyoto aufgeben.</span>
+    </div>
+
+    <div class="timeline">
+
+      <div class="tl-item">
+        <div class="tl-time">11:30</div>
+        <div class="tl-line"><div class="tl-dot dot-sight"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-card">
+            <img class="item-img" src="https://images.unsplash.com/photo-1578469550956-0e16b69c6a3d?w=800&q=80" alt="Hiroshima Peace Memorial" loading="lazy">
+            <div class="item-card-inner">
+              <div class="item-type type-sight">Museum</div>
+              <div class="item-name">Hiroshima Peace Memorial Museum</div>
+              <div class="item-detail">Gepäck am Bahnhof einschließen. Museum 15 Min mit Straßenbahn. Emotionaler, wichtiger Besuch. 2–3 Std einplanen.</div>
+              <div class="transit-pill">🚃 Straßenbahn Linie 2 → Genbaku-Dome-Mae · 15 Min · ¥220</div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="stime-arrow">→</div>
-      <div class="stime-duration">~90 Min</div>
-      <div class="stime-arrow">→</div>
-      <div class="stime">
-        <div class="stime-hour">09:30</div>
-        <div class="stime-label">Odawara</div>
+
+      <div class="tl-item">
+        <div class="tl-time">14:00</div>
+        <div class="tl-line"><div class="tl-dot dot-wishlist"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-card">
+            <img class="item-img" src="https://images.unsplash.com/photo-1569051648893-3b91e4f23e1c?w=800&q=80" alt="Okonomiyaki" loading="lazy">
+            <div class="item-card-inner">
+              <div class="item-type type-wishlist">✓ Wishlist</div>
+              <div class="item-name">Hiroshima Okonomiyaki · Okonomimura</div>
+              <div class="item-detail">3-stöckiges Gebäude mit 25 Läden. Hiroshima-Style (geschichtet statt gemischt) – ganz anders als in Osaka!</div>
+              <div class="wishlist-tag">🥞 Okonomiyaki</div>
+            </div>
+          </div>
+        </div>
       </div>
+
+      <div class="tl-item">
+        <div class="tl-time">15:30</div>
+        <div class="tl-line"><div class="tl-dot dot-transit"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-simple">
+            <div class="item-type type-transit">Transit → Miyajima</div>
+            <div class="item-name" style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;margin-bottom:4px;">Hiroshima → Miyajimaguchi → Fähre</div>
+            <div class="item-detail" style="font-size:12px;color:var(--ink2);">JR Sanyo Line → Miyajimaguchi, dann JR-Fähre (im JR Pass inklusive!). Ca. 40 Min gesamt.</div>
+            <div class="transit-pill">⛴️ Fähre kostenlos mit JR Pass</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time">16:30</div>
+        <div class="tl-line"><div class="tl-dot dot-stay"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-simple">
+            <div class="item-type type-stay">Check-in · Ryokan</div>
+            <div class="item-name" style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;margin-bottom:4px;">Ryokan · Miyajima-Insel</div>
+            <div class="item-detail" style="font-size:12px;color:var(--ink2);">Shuttle von der Fähre, Onsen, Kaiseki-Dinner. Dann abends auf die Insel.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time">18:00</div>
+        <div class="tl-line"><div class="tl-dot dot-sight"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-card">
+            <img class="item-img" src="https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=800&q=80" alt="Miyajima Torii" loading="lazy">
+            <div class="item-card-inner">
+              <div class="item-type type-sight">Abends · Highlight</div>
+              <div class="item-name">Itsukushima Torii bei Flut · Abends</div>
+              <div class="item-detail">Wenn alle Tagesgäste weg sind, habt ihr den schwimmenden Torii fast für euch. Bewusst abends eingeplant!</div>
+              <div class="item-tip">💡 Flutzeiten checken: tides.net/japan/miyajima – drum herum planen!</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     KYOTO
+══════════════════════════════════════════════════ -->
+<section class="city-section" id="kyoto">
+  <div class="city-hero">
+    <div>
+      <div class="city-eyebrow">04 — Tempel · Tee · Machiya</div>
+      <div class="city-name-block">
+        <div class="city-name">Kyoto</div>
+        <div class="city-name-jp">京都</div>
+      </div>
+    </div>
+    <div class="city-dates-block">
+      <div class="city-dates">30 Okt — 2 Nov</div>
+      <div class="city-nights">3 Nächte · 3 Tage</div>
+    </div>
+  </div>
+
+  <div class="hotel-placeholder">
+    <div class="hotel-icon">🏘️</div>
+    <div>
+      <div class="hotel-label-sm">Unterkunft · Machiya</div>
+      <div class="hotel-name-placeholder">Hotel TBD · Higashiyama</div>
+    </div>
+    <div class="hotel-rating">⭐ Platzhalter</div>
+  </div>
+
+  <div class="koyo-badge">
+    <span class="koyo-emoji">🍂</span>
+    <span><strong>Koyo frühe Phase:</strong> Ende Oktober beginnt die Färbung in Kyoto. Daigo-ji und Tofukuji sind früher als der Rest – perfekt für euren Zeitraum. Arashiyama peak erst Ende November.</span>
+  </div>
+
+  <div class="transfer-card">
+    <div class="transfer-icon">⛴️</div>
+    <div class="transfer-info">
+      <div class="transfer-route">Miyajima → Kyoto via Fushimi Inari</div>
+      <div class="transfer-meta">Frühe Fähre Miyajima → Hiroshima · dann Zug → Inari Station (Fushimi) · dann weiter nach Kyoto</div>
+    </div>
+    <div class="transfer-times">
+      <div class="t-time"><div class="t-hour">06:25</div><div class="t-label">Miyajima Fähre</div></div>
+      <div class="t-arrow">→</div>
+      <div class="t-dur">Fushimi Inari 08:00</div>
+      <div class="t-arrow">→</div>
+      <div class="t-time"><div class="t-hour">10:00</div><div class="t-label">Kyoto</div></div>
     </div>
   </div>
 
   <div class="tips-grid">
-    <div class="tip-card">
-      <div class="tip-emoji">🎫</div>
-      <div class="tip-title">Hakone Free Pass</div>
-      <div class="tip-text">2-Tages-Pass für ¥6.100 – deckt alle Verkehrsmittel in Hakone ab: Bahn, Bus, Seilbahn, Schiff.</div>
-    </div>
-    <div class="tip-card">
-      <div class="tip-emoji">🌋</div>
-      <div class="tip-title">Fuji-Sicht</div>
-      <div class="tip-text">Bester Blick morgens früh, bevor Wolken aufziehen. Chureito Pagoda & Oishi Park sind Top-Spots.</div>
-    </div>
+    <div class="tip-card"><div class="tip-emoji">⏰</div><div class="tip-title">Fushimi Inari früh</div><div class="tip-text">Vor 08:00 Uhr – dann ist es leer. Mittags meistfotografierter Touristenspot Kyotos.</div></div>
+    <div class="tip-card"><div class="tip-emoji">🍵</div><div class="tip-title">Teezeremonie buchen</div><div class="tip-text">TEA CEREMONY GION Orizuru (⭐ 5.0) · vorab online buchen · englischsprachig.</div></div>
+    <div class="tip-card"><div class="tip-emoji">🍱</div><div class="tip-title">Omakase</div><div class="tip-text">Für echtes Kaiseki-Omakase: Mizai oder Nakamura Kyoto – mind. 1–2 Monate vorher reservieren!</div></div>
+    <div class="tip-card"><div class="tip-emoji">🚌</div><div class="tip-title">Kyoto Bus Pass</div><div class="tip-text">¥700 für unbegrenzte Busfahrten. Deckt Higashiyama, Arashiyama, Fushimi ab.</div></div>
   </div>
 
-  <div class="day-card">
-    <div class="day-header">
-      <div>
-        <div class="day-label">Tag 4 — Anreise & Fuji-Panorama</div>
-        <div class="day-theme">Chureito Pagoda · Oishi Park · Ankunft Hakone</div>
-      </div>
-      <div class="day-date">27. Mai</div>
+  <div class="day-block">
+    <div class="day-label-row">
+      <span class="day-num">Tag 07</span>
+      <span class="day-title">Fushimi früh · Higashiyama · Gion</span>
+      <span class="day-date-tag">30. Oktober</span>
+      <span class="day-theme">Torii vor 8 Uhr · Kiyomizudera · Gion bei Dämmerung</span>
     </div>
     <div class="timeline">
 
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">07:00</span></div>
-        <div class="content-col">
-          <div class="item-type type-transit"><span class="item-dot dot-transit"></span>Abreise Tokio</div>
-          <div class="item-name">Gepäck zum Ryokan vorausschicken</div>
-          <div class="item-detail">Nur Tagesgepäck mitnehmen. Koffer per Takkyubin ins Nazuna Hakone schicken (Übergabe Konbini bis 12 Uhr).</div>
+      <div class="tl-item">
+        <div class="tl-time">07:00</div>
+        <div class="tl-line"><div class="tl-dot dot-sight"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-card">
+            <img class="item-img" src="https://images.unsplash.com/photo-1478436127897-769e1b3f0f36?w=800&q=80" alt="Fushimi Inari" loading="lazy">
+            <div class="item-card-inner">
+              <div class="item-type type-sight">Früh · Fast leer</div>
+              <div class="item-name">Fushimi Inari-Taisha</div>
+              <div class="item-detail">⭐ 4.6 · Bewusst ganz früh eingeplant! Vor 08:00 Uhr habt ihr die Torii-Gassen fast für euch. Danach kommen Massen.</div>
+              <div class="transit-pill">🚃 Fähre → Hiroshima → Inari Station · JR</div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">08:00</span></div>
-        <div class="content-col">
-          <div class="item-type type-transit"><span class="item-dot dot-transit"></span>Transit</div>
-          <div class="item-name">Shinjuku → Otsuki → Kawaguchiko</div>
-          <div class="item-detail">JR Chuo Line nach Otsuki, dann Fuji Kyuko Line nach Kawaguchiko. Gesamtfahrt ca. 2 Std.</div>
-          <div class="transit-pill">🚃 Shinjuku 08:00 → Kawaguchiko ~10:15 · ¥1.360</div>
+      <div class="tl-item">
+        <div class="tl-time">10:00</div>
+        <div class="tl-line"><div class="tl-dot dot-cafe"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-simple">
+            <div class="item-type type-cafe">Frühstück</div>
+            <div class="item-name" style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;margin-bottom:4px;">Breakfast Kyoto ogawasyouyaku R.</div>
+            <div class="item-detail" style="font-size:12px;color:var(--ink2);">⭐ 4.9 · 3.000–4.000 ¥ · Begehrtestes Frühstückslokal Kyotos. Vorab reservieren!</div>
+          </div>
         </div>
       </div>
 
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">10:30</span></div>
-        <div class="content-col">
-          <div class="item-type type-sight"><span class="item-dot dot-sight"></span>Highlight</div>
-          <div class="item-name">Chureito Pagoda</div>
-          <div class="item-detail">⭐ 4.7 · 400 Stufen hoch, aber der beste Fuji-Blick mit Pagode überhaupt. Morgens klar = Fuji sichtbar. 15 Min von Fujiyoshida Station.</div>
+      <div class="tl-item">
+        <div class="tl-time">12:00</div>
+        <div class="tl-line"><div class="tl-dot dot-sight"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-card">
+            <img class="item-img" src="https://images.unsplash.com/photo-1551641506-ee5bf4cb45f1?w=800&q=80" alt="Kiyomizudera" loading="lazy">
+            <div class="item-card-inner">
+              <div class="item-type type-sight">🍂 Koyo</div>
+              <div class="item-name">Kiyomizudera</div>
+              <div class="item-detail">⭐ 4.6 · Holzterrasse über dem herbstbunten Wald. Anschließend Ninenzaka + Sannenzaka – schönste Straßen Kyotos.</div>
+              <div class="transit-pill">🚌 Bus 206 → Kiyomizumichi · 20 Min · ¥230</div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">12:00</span></div>
-        <div class="content-col">
-          <div class="item-type type-sight"><span class="item-dot dot-sight"></span>Park</div>
-          <div class="item-name">Oishi Park · Yamanaka-See</div>
-          <div class="item-detail">⭐ 4.4 / 4.5 · Flacher Blick auf Fuji vom See aus. Im Mai: Lupinen und Wildblumen. Bus vom Kawaguchiko-See.</div>
+      <div class="tl-item">
+        <div class="tl-time">15:00</div>
+        <div class="tl-line"><div class="tl-dot dot-cafe"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-simple">
+            <div class="item-type type-cafe">Café</div>
+            <div class="item-name" style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;margin-bottom:4px;">Walden Woods Kyoto</div>
+            <div class="item-detail" style="font-size:12px;color:var(--ink2);">⭐ 4.4 · Specialty Coffee in Higashiyama. Ruhige Atmosphäre, gutes Gebäck.</div>
+          </div>
         </div>
       </div>
 
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">13:30</span></div>
-        <div class="content-col">
-          <div class="item-type type-sight"><span class="item-dot dot-sight"></span>Freilichtmuseum</div>
-          <div class="item-name">Saiko Iyashi-no-Sato Nenba</div>
-          <div class="item-detail">⭐ 4.4 · Historisches Dorf mit Gassho-Häusern und Fuji-Blick. Sehr fotogen, weniger überlaufen als Kawaguchiko.</div>
+      <div class="tl-item">
+        <div class="tl-time">16:00</div>
+        <div class="tl-line"><div class="tl-dot dot-sight"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-card">
+            <img class="item-img" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80" alt="Yasaka Pagoda" loading="lazy">
+            <div class="item-card-inner">
+              <div class="item-type type-sight">Golden Hour</div>
+              <div class="item-name">Hökan-ji · Yasaka Pagoda</div>
+              <div class="item-detail">⭐ 4.6 · Bewusst nachmittags – warmes Licht, Pagode + Machiya-Häuser im Hintergrund = das ikonische Kyoto-Foto.</div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">15:30</span></div>
-        <div class="content-col">
-          <div class="item-type type-transit"><span class="item-dot dot-transit"></span>Transit</div>
-          <div class="item-name">Kawaguchiko → Hakone Miyanoshita</div>
-          <div class="item-detail">Bus nach Gotemba, dann Hakone Tozan Bahn nach Miyanoshita. Ca. 90 Min.</div>
-          <div class="transit-pill">🚌 Fuji Express Bus + Hakone Tozan</div>
+      <div class="tl-item">
+        <div class="tl-time">17:30</div>
+        <div class="tl-line"><div class="tl-dot dot-sight"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-simple">
+            <div class="item-type type-sight">Dämmerung</div>
+            <div class="item-name" style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;margin-bottom:4px;">Gion Spaziergang</div>
+            <div class="item-detail" style="font-size:12px;color:var(--ink2);">Hanamikoji-Straße bei Dämmerung – Chance auf Geishas. Shirakawa-Kanal entlang laufen.</div>
+          </div>
         </div>
       </div>
 
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">17:30</span></div>
-        <div class="content-col">
-          <div class="item-type type-stay"><span class="item-dot dot-stay"></span>Check-in & Onsen</div>
-          <div class="item-name">Nazuna Hakone Miyanoshita</div>
-          <div class="item-detail">⭐ 4.7 · Einchecken, Onsen genießen, Kaiseki-Dinner. Der erste echte Ryokan-Abend eurer Reise.</div>
-          <div class="item-tip">💡 Yukata anziehen und abends im Ryokan bleiben – das ist der Punkt!</div>
+      <div class="tl-item">
+        <div class="tl-time">19:00</div>
+        <div class="tl-line"><div class="tl-dot dot-food"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-simple">
+            <div class="item-type type-food">Abendessen</div>
+            <div class="item-name" style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;margin-bottom:4px;">Otachidokoro Sushi Ki</div>
+            <div class="item-detail" style="font-size:12px;color:var(--ink2);">⭐ 4.8 · Reservierung essentiell! Eines der besten Sushi-Lokale Kyotos.</div>
+          </div>
         </div>
       </div>
 
     </div>
   </div>
 
-  <div class="day-card">
-    <div class="day-header">
-      <div>
-        <div class="day-label">Tag 5 — Hakone Rundfahrt</div>
-        <div class="day-theme">Shiraito · Seilbahn · Ashinoko-See</div>
-      </div>
-      <div class="day-date">28. Mai</div>
+  <div class="day-block">
+    <div class="day-label-row">
+      <span class="day-num">Tag 08</span>
+      <span class="day-title">Bambuswald früh · Teezeremonie · Tofukuji</span>
+      <span class="day-date-tag">31. Oktober</span>
+      <span class="day-theme">Arashiyama vor 8 Uhr · Tee · Koyo Tempel</span>
     </div>
     <div class="timeline">
 
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">07:30</span></div>
-        <div class="content-col">
-          <div class="item-type type-food"><span class="item-dot dot-food"></span>Frühstück</div>
-          <div class="item-name">Ryokan-Frühstück</div>
-          <div class="item-detail">Traditionelles japanisches Frühstück im Ryokan – Miso, Fisch, Tofu, Reis. Nicht auslassen!</div>
+      <div class="tl-item">
+        <div class="tl-time">06:45</div>
+        <div class="tl-line"><div class="tl-dot dot-sight"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-card">
+            <img class="item-img" src="https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=800&q=80" alt="Arashiyama Bamboo" loading="lazy">
+            <div class="item-card-inner">
+              <div class="item-type type-sight">Früh · Fast leer</div>
+              <div class="item-name">Arashiyama Bamboo Forest</div>
+              <div class="item-detail">Bewusst vor 08:00 Uhr! Danach extremst überfüllt. 30 Min reichen für den Wald. Tenryuji-Garten daneben für Herbstlaub 🍁</div>
+              <div class="transit-pill">🚌 Bus 28 ab Kyoto Station → Arashiyama · 30 Min</div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">09:00</span></div>
-        <div class="content-col">
-          <div class="item-type type-sight"><span class="item-dot dot-sight"></span>Wasserfall</div>
-          <div class="item-name">Shiraito-Wasserfall</div>
-          <div class="item-detail">⭐ 4.4 · UNESCO-Welterbe nahe Fuji. Breite Wasserwand, sehr fotogen. Mit Hakone Free Pass Bus.</div>
+      <div class="tl-item">
+        <div class="tl-time">09:00</div>
+        <div class="tl-line"><div class="tl-dot dot-sight"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-simple">
+            <div class="item-type type-sight">Versteckter Tempel</div>
+            <div class="item-name" style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;margin-bottom:4px;">Otagi Nenbutsuji</div>
+            <div class="item-detail" style="font-size:12px;color:var(--ink2);">⭐ 4.7 · 1.200 handgeschnitzte Steinmönche. Wenig bekannt, kaum Touristen. Sagano-Gegend.</div>
+          </div>
         </div>
       </div>
 
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">11:00</span></div>
-        <div class="content-col">
-          <div class="item-type type-sight"><span class="item-dot dot-sight"></span>Panorama</div>
-          <div class="item-name">Momiji Tunnel & Seilbahn Owakudani</div>
-          <div class="item-detail">⭐ 4.4 · Hakone Ropeway über das Vulkangebiet Owakudani mit schwarzen Eiern. Dann hinunter zum See.</div>
+      <div class="tl-item">
+        <div class="tl-time">11:00</div>
+        <div class="tl-line"><div class="tl-dot dot-wishlist"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-card">
+            <img class="item-img" src="https://images.unsplash.com/photo-1582735689369-4fe89db7114c?w=800&q=80" alt="Tea Ceremony" loading="lazy">
+            <div class="item-card-inner">
+              <div class="item-type type-wishlist">✓ Wishlist</div>
+              <div class="item-name">TEA CEREMONY GION Orizuru</div>
+              <div class="item-detail">⭐ 5.0 · Buchung vorab unbedingt. Ca. 60 Min, englischsprachig, mitten in Gion. Das Highlight eurer Kyoto-Zeit.</div>
+              <div class="transit-pill">🚌 Bus zurück nach Gion · 25 Min</div>
+              <div class="wishlist-tag">🍵 Teezeremonie</div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">13:00</span></div>
-        <div class="content-col">
-          <div class="item-type type-sight"><span class="item-dot dot-sight"></span>See</div>
-          <div class="item-name">Ashinoko-See · Hakone-Schiff</div>
-          <div class="item-detail">Hakone Sightseeing Cruise über den See. Bei klarem Wetter Fuji-Blick vom Wasser. Im Hakone Free Pass inklusive.</div>
+      <div class="tl-item">
+        <div class="tl-time">13:00</div>
+        <div class="tl-line"><div class="tl-dot dot-food"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-simple">
+            <div class="item-type type-food">Mittagessen</div>
+            <div class="item-name" style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;margin-bottom:4px;">Nishiki-Markt Streetfood</div>
+            <div class="item-detail" style="font-size:12px;color:var(--ink2);">⭐ 4.3 · Kyotos Küche: Tamagoyaki, Tsukemono, Tofu-Snacks. Früh Mittag = weniger voll.</div>
+          </div>
         </div>
       </div>
 
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">15:00</span></div>
-        <div class="content-col">
-          <div class="item-type type-stay"><span class="item-dot dot-stay"></span>Nachmittag</div>
-          <div class="item-name">Rückkehr Ryokan · Onsen</div>
-          <div class="item-detail">Früh zurück zum Ryokan. Onsen am Nachmittag nutzen wenn er weniger voll ist. Letzter Ryokan-Abend.</div>
+      <div class="tl-item">
+        <div class="tl-time">14:30</div>
+        <div class="tl-line"><div class="tl-dot dot-cafe"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-simple">
+            <div class="item-type type-cafe">Café</div>
+            <div class="item-name" style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;margin-bottom:4px;">YUGEN · Kyoto Shijo</div>
+            <div class="item-detail" style="font-size:12px;color:var(--ink2);">⭐ 4.6 · Specialty Coffee + Matcha. Designte, ruhige Atmosphäre.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time">16:00</div>
+        <div class="tl-line"><div class="tl-dot dot-sight"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-card">
+            <img class="item-img" src="https://images.unsplash.com/photo-1540400638327-64d728bf94c6?w=800&q=80" alt="Tofukuji" loading="lazy">
+            <div class="item-card-inner">
+              <div class="item-type type-sight">🍁 Koyo Highlight</div>
+              <div class="item-name">Tofukuji Temple</div>
+              <div class="item-detail">Einer der besten Koyo-Spots Kyotos – Tsutenkyo-Brücke mit Blick auf ein Meer aus roten Ahornblättern. Peak Ende Oktober/Anfang November!</div>
+              <div class="transit-pill">🚃 Keihan Line → Tofukuji · 10 Min</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time">19:00</div>
+        <div class="tl-line"><div class="tl-dot dot-food"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-simple">
+            <div class="item-type type-food">Abendessen</div>
+            <div class="item-name" style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;margin-bottom:4px;">M&M Maison Kyoto</div>
+            <div class="item-detail" style="font-size:12px;color:var(--ink2);">⭐ 4.6 · 2.000–3.000 ¥ · Eines der fotogensten Lokale Kyotos.</div>
+          </div>
         </div>
       </div>
 
     </div>
   </div>
-</div>
 
-<!-- ═══════════════════════════════ HIROSHIMA ═══════════════════════════════ -->
-<div class="city-section" id="hiroshima">
-  <div class="city-header">
+  <div class="day-block">
+    <div class="day-label-row">
+      <span class="day-num">Tag 09</span>
+      <span class="day-title">Teehäuser · Daigo-ji · Omakase</span>
+      <span class="day-date-tag">1. November</span>
+      <span class="day-theme">Verborgene Tempel · Abschlussabend</span>
+    </div>
+
+    <div class="luggage-card">
+      <span>📦</span>
+      <span><strong>Gepäck-Reminder:</strong> Heute bis 12:00 Uhr Koffer für Takkyubin nach Takayama aufgeben.</span>
+    </div>
+
+    <div class="timeline">
+
+      <div class="tl-item">
+        <div class="tl-time">08:00</div>
+        <div class="tl-line"><div class="tl-dot dot-cafe"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-card">
+            <img class="item-img" src="https://images.unsplash.com/photo-1556679343-c7306c1976bc?w=800&q=80" alt="Nakamura Tokichi" loading="lazy">
+            <div class="item-card-inner">
+              <div class="item-type type-cafe">Teehaus · Früh</div>
+              <div class="item-name">Nakamura Tokichi Honten</div>
+              <div class="item-detail">⭐ 4.4 · Traditionelles Teehaus · Matcha-Parfait. Am Biwako-Kanal. Schlange früh kürzer.</div>
+              <div class="transit-pill">🚃 Keihan Line → Chushojima · 15 Min</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time">10:00</div>
+        <div class="tl-line"><div class="tl-dot dot-sight"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-card">
+            <img class="item-img" src="https://images.unsplash.com/photo-1583608205776-bfd35f0d9f83?w=800&q=80" alt="Daigo-ji" loading="lazy">
+            <div class="item-card-inner">
+              <div class="item-type type-sight">🍁 Koyo Highlight</div>
+              <div class="item-name">Daigo-ji Temple</div>
+              <div class="item-detail">⭐ 4.4 · Fünfstöckige Pagode + spektakuläres Herbstlaub. Einer der schönsten Tempel Kyotos, wenige Touristen.</div>
+              <div class="transit-pill">🚃 Tōzai Line → Daigo · 20 Min</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time">13:00</div>
+        <div class="tl-line"><div class="tl-dot dot-cafe"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-simple">
+            <div class="item-type type-cafe">Tee · Shop</div>
+            <div class="item-name" style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;margin-bottom:4px;">Jinjiro Tea Shop</div>
+            <div class="item-detail" style="font-size:12px;color:var(--ink2);">⭐ 4.9 · Kleiner Teeladen, curated Auswahl, ruhig. Für Mitbringsel und Verkostung.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time">14:30</div>
+        <div class="tl-line"><div class="tl-dot dot-food"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-simple">
+            <div class="item-type type-food">Snack</div>
+            <div class="item-name" style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;margin-bottom:4px;">Kazariya · Wagashi</div>
+            <div class="item-detail" style="font-size:12px;color:var(--ink2);">⭐ 4.5 · Traditionelle Süßigkeiten seit 400 Jahren. Nahe Imamiya-Schrein.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time">16:00</div>
+        <div class="tl-line"><div class="tl-dot dot-cafe"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-simple">
+            <div class="item-type type-cafe">Café</div>
+            <div class="item-name" style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;margin-bottom:4px;">Blue Bottle Coffee Kyoto</div>
+            <div class="item-detail" style="font-size:12px;color:var(--ink2);">⭐ 4.4 · Im historischen Machiya-Haus mit Garten. Ruhig, sehr schön designed.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time">19:00</div>
+        <div class="tl-line"><div class="tl-dot dot-wishlist"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-card">
+            <img class="item-img" src="https://images.unsplash.com/photo-1553621042-f6e147245754?w=800&q=80" alt="Omakase" loading="lazy">
+            <div class="item-card-inner">
+              <div class="item-type type-wishlist">✓ Wishlist</div>
+              <div class="item-name">Omakase · Kyoto</div>
+              <div class="item-detail">Mizai oder Nakamura Kyoto – echtes Kaiseki-Omakase. Abschlussabend in Kyoto. Mind. 1–2 Monate vorher reservieren!</div>
+              <div class="wishlist-tag">🍣 Omakase</div>
+              <div class="item-tip">💡 Jetzt reservieren – Plätze sind sehr begrenzt!</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════
+     TAKAYAMA
+══════════════════════════════════════════════════ -->
+<section class="city-section" id="takayama">
+  <div class="city-hero">
     <div>
-      <div class="city-name">広島 Hiroshima</div>
-      <div class="city-dates">29. – 30. Mai · 1 Nacht</div>
-    </div>
-    <div class="city-hotel">
-      <div class="hotel-label">Empfehlung</div>
-      <div class="hotel-name">Iwaso Ryokan</div>
-      <div class="hotel-rating">⭐ 4.6 · Miyajima-Insel</div>
-    </div>
-  </div>
-
-  <div class="shinkansen-card">
-    <div class="shinkansen-icon">🚄</div>
-    <div class="shinkansen-info">
-      <div class="shinkansen-route">Odawara → Hiroshima</div>
-      <div class="shinkansen-meta">JR Tokaido/Sanyo Shinkansen Nozomi · Direkt · Im JR Pass inbegriffen</div>
-    </div>
-    <div class="shinkansen-times">
-      <div class="stime">
-        <div class="stime-hour">08:30</div>
-        <div class="stime-label">Odawara</div>
+      <div class="city-eyebrow">05 — 🍁🍁 Koyo Peak</div>
+      <div class="city-name-block">
+        <div class="city-name">Takayama</div>
+        <div class="city-name-jp">高山</div>
       </div>
-      <div class="stime-arrow">→</div>
-      <div class="stime-duration">~2 Std 40 Min</div>
-      <div class="stime-arrow">→</div>
-      <div class="stime">
-        <div class="stime-hour">11:10</div>
-        <div class="stime-label">Hiroshima</div>
-      </div>
+    </div>
+    <div class="city-dates-block">
+      <div class="city-dates">2 — 5 November</div>
+      <div class="city-nights">3 Nächte · Altstadt · Schneemaffen</div>
     </div>
   </div>
 
-  <div class="tips-grid">
-    <div class="tip-card">
-      <div class="tip-emoji">🦌</div>
-      <div class="tip-title">Miyajima-Abend</div>
-      <div class="tip-text">Übernachtung auf Miyajima! Wenn Tagestouristen abends weg sind, habt ihr die Insel für euch. Absolut magisch.</div>
-    </div>
-    <div class="tip-card">
-      <div class="tip-emoji">🕯️</div>
-      <div class="tip-title">Peace Memorial</div>
-      <div class="tip-text">Hiroshima Peace Memorial Museum – emotional, wichtig, 2–3 Stunden einplanen. Morgens ruhiger.</div>
-    </div>
-  </div>
-
-  <div class="day-card">
-    <div class="day-header">
-      <div>
-        <div class="day-label">Tag 6 — Hiroshima & Miyajima</div>
-        <div class="day-theme">Peace Memorial · Fähre · Iwaso Ryokan</div>
-      </div>
-      <div class="day-date">29. Mai</div>
-    </div>
-    <div class="timeline">
-
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">08:30</span></div>
-        <div class="content-col">
-          <div class="item-type type-transit"><span class="item-dot dot-transit"></span>Abreise Hakone</div>
-          <div class="item-name">Miyanoshita → Odawara → Hiroshima</div>
-          <div class="item-detail">Hakone Tozan Bahn nach Odawara (30 Min), dann Nozomi Shinkansen direkt nach Hiroshima.</div>
-          <div class="transit-pill">🚄 Odawara ~08:30 → Hiroshima ~11:10</div>
-        </div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">11:30</span></div>
-        <div class="content-col">
-          <div class="item-type type-sight"><span class="item-dot dot-sight"></span>Museum</div>
-          <div class="item-name">Hiroshima Peace Memorial Museum</div>
-          <div class="item-detail">Gepäck am Bahnhof einschließen. Museum 15 Min mit Straßenbahn. Emotionaler, wichtiger Besuch. 2 Std einplanen.</div>
-          <div class="transit-pill">🚃 Straßenbahn Linie 2 → Genbaku-Dome-Mae · 15 Min · ¥220</div>
-        </div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">14:00</span></div>
-        <div class="content-col">
-          <div class="item-type type-food"><span class="item-dot dot-food"></span>Mittagessen</div>
-          <div class="item-name">Hiroshima Okonomiyaki</div>
-          <div class="item-detail">Hiroshima-Style Okonomiyaki ist anders als in Osaka (geschichtet statt gemischt). Okonomimura – 3-stöckiges Gebäude mit 25 Läden.</div>
-        </div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">15:30</span></div>
-        <div class="content-col">
-          <div class="item-type type-transit"><span class="item-dot dot-transit"></span>Transit</div>
-          <div class="item-name">Hiroshima → Miyajima</div>
-          <div class="item-detail">JR San'yo Line nach Miyajimaguchi, dann JR-Fähre nach Miyajima (im JR Pass inklusive). Ca. 40 Min gesamt.</div>
-          <div class="transit-pill">🚃 Hiroshima → Miyajimaguchi + ⛴️ Fähre · ¥0 mit JR Pass</div>
-        </div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">16:30</span></div>
-        <div class="content-col">
-          <div class="item-type type-stay"><span class="item-dot dot-stay"></span>Check-in</div>
-          <div class="item-name">Iwaso Ryokan · Miyajima</div>
-          <div class="item-detail">⭐ 4.6 · Ältester Ryokan auf Miyajima. Shuttle von der Fähre, Onsen, Kaiseki-Dinner. Shuttle zum Torii-Gate abends.</div>
-        </div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">18:00</span></div>
-        <div class="content-col">
-          <div class="item-type type-sight"><span class="item-dot dot-sight"></span>Highlight</div>
-          <div class="item-name">Itsukushima-Schrein & Torii bei Flut</div>
-          <div class="item-detail">⭐ 4.7 · Wenn alle Tagesgäste weg sind, habt ihr den schwimmenden Torii fast für euch. Flutzeiten vorab checken!</div>
-          <div class="item-tip">💡 Flutzeiten für Miyajima: tides.net/japan/miyajima – plankt das drum herum!</div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════ KYOTO ═══════════════════════════════ -->
-<div class="city-section" id="kyoto">
-  <div class="city-header">
+  <div class="hotel-placeholder">
+    <div class="hotel-icon">🏘️</div>
     <div>
-      <div class="city-name">京都 Kyoto</div>
-      <div class="city-dates">30. Mai – 2. Juni · 3 Nächte · 3 Tage</div>
+      <div class="hotel-label-sm">Unterkunft · Machiya</div>
+      <div class="hotel-name-placeholder">Hotel TBD · Takayama Altstadt</div>
     </div>
-    <div class="city-hotel">
-      <div class="hotel-label">Unterkunft</div>
-      <div class="hotel-name">Saka Hotel + Machiya Fukune</div>
-      <div class="hotel-rating">⭐ 4.5 / 4.7 · Higashiyama</div>
+    <div class="hotel-rating">⭐ Platzhalter</div>
+  </div>
+
+  <div class="koyo-badge">
+    <span class="koyo-emoji">🍁🍁</span>
+    <span><strong>Absoluter Koyo Peak:</strong> Takayama Anfang November ist ein der schönsten Orte ganz Japans. Rote und goldene Blätter über den historischen Brauereigassen und dem Hida Folk Village. Unvergesslich.</span>
+  </div>
+
+  <div class="transfer-card">
+    <div class="transfer-icon">🚃</div>
+    <div class="transfer-info">
+      <div class="transfer-route">Kyoto → Osaka → Nara → Takayama</div>
+      <div class="transfer-meta">Kyoto → Osaka (15 Min Shinkansen) · Nara Tagesausflug<br>dann Osaka → Nagoya (Shinkansen) → Takayama (Wideview Hida)</div>
+    </div>
+    <div class="transfer-times">
+      <div class="t-time"><div class="t-hour">08:00</div><div class="t-label">Osaka</div></div>
+      <div class="t-arrow">→</div>
+      <div class="t-dur">Nara + Zug</div>
+      <div class="t-arrow">→</div>
+      <div class="t-time"><div class="t-hour">18:00</div><div class="t-label">Takayama</div></div>
     </div>
   </div>
 
-  <div class="shinkansen-card">
-    <div class="shinkansen-icon">🚄</div>
-    <div class="shinkansen-info">
-      <div class="shinkansen-route">Hiroshima → Kyoto</div>
-      <div class="shinkansen-meta">JR Sanyo/Tokaido Shinkansen Nozomi · Direkt · Im JR Pass inbegriffen</div>
+  <div class="day-block">
+    <div class="day-label-row">
+      <span class="day-num">Tag 10</span>
+      <span class="day-title">Osaka · Nara · Anreise Takayama</span>
+      <span class="day-date-tag">2. November</span>
+      <span class="day-theme">Hirsche + Koyo · Traumzug durch die Alpen</span>
     </div>
-    <div class="shinkansen-times">
-      <div class="stime">
-        <div class="stime-hour">09:00</div>
-        <div class="stime-label">Hiroshima</div>
+
+    <div class="luggage-card">
+      <span>📦</span>
+      <span><strong>Gepäck-Reminder:</strong> Gestern bereits aufgegeben – Koffer wartet in Takayama im Hotel!</span>
+    </div>
+
+    <div class="timeline">
+
+      <div class="tl-item">
+        <div class="tl-time">09:00</div>
+        <div class="tl-line"><div class="tl-dot dot-sight"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-card">
+            <img class="item-img" src="https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=800&q=80" alt="Nara Park" loading="lazy">
+            <div class="item-card-inner">
+              <div class="item-type type-sight">🍁 Tagesausflug</div>
+              <div class="item-name">Nara-Park · Tōdai-ji</div>
+              <div class="item-detail">⭐ 4.6 · Freilaufende Hirsche + Bronze-Buddha + Herbstlaub. 45 Min von Osaka Namba (Kintetsu).</div>
+              <div class="transit-pill">🚃 Osaka Namba → Nara · Kintetsu · 45 Min · ¥680</div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="stime-arrow">→</div>
-      <div class="stime-duration">~1 Std</div>
-      <div class="stime-arrow">→</div>
-      <div class="stime">
-        <div class="stime-hour">10:00</div>
-        <div class="stime-label">Kyoto</div>
+
+      <div class="tl-item">
+        <div class="tl-time">11:30</div>
+        <div class="tl-line"><div class="tl-dot dot-sight"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-simple">
+            <div class="item-type type-sight">Schrein</div>
+            <div class="item-name" style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;margin-bottom:4px;">Kasuga Taisha + Naramachi</div>
+            <div class="item-detail" style="font-size:12px;color:var(--ink2);">Kasuga Grand Shrine mit tausend Laternen, dann historisches Kaufmannsviertel.</div>
+          </div>
+        </div>
       </div>
+
+      <div class="tl-item">
+        <div class="tl-time">14:00</div>
+        <div class="tl-line"><div class="tl-dot dot-transit"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-card">
+            <img class="item-img" src="https://images.unsplash.com/photo-1503220317375-aaad61436b1b?w=800&q=80" alt="Wideview Hida train" loading="lazy">
+            <div class="item-card-inner">
+              <div class="item-type type-transit">Traumzug</div>
+              <div class="item-name">Wideview Hida · Nagoya → Takayama</div>
+              <div class="item-detail">~2:30 Std durch die japanischen Alpen. Herbstlaub, Flüsse, Berge – eine der schönsten Zugstrecken Japans. 🍁</div>
+              <div class="transit-pill">🚃 Nagoya → Takayama · Hida · ¥5.610</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time">18:00</div>
+        <div class="tl-line"><div class="tl-dot dot-food"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-simple">
+            <div class="item-type type-food">Abendessen</div>
+            <div class="item-name" style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;margin-bottom:4px;">Hida-Rindfleisch · Takayama</div>
+            <div class="item-detail" style="font-size:12px;color:var(--ink2);">Takayama ist berühmt für Hida Beef (ähnlich Wagyu). Erstes Abendessen in der Altstadt.</div>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 
-  <div class="tips-grid">
-    <div class="tip-card">
-      <div class="tip-emoji">⏰</div>
-      <div class="tip-title">Fushimi Inari früh</div>
-      <div class="tip-text">Vor 7 Uhr morgens – dann ist es leer. Mittags ist es der meistfotografierte überfüllte Ort Kyotos.</div>
-    </div>
-    <div class="tip-card">
-      <div class="tip-emoji">🍵</div>
-      <div class="tip-title">Teezeremonie buchen</div>
-      <div class="tip-text">TEA CEREMONY GION Orizuru (⭐ 5.0) vorab online buchen. Englischsprachig, keine langen Warteschlangen.</div>
-    </div>
-    <div class="tip-card">
-      <div class="tip-emoji">🚌</div>
-      <div class="tip-title">Kyoto Bus 1-Day Pass</div>
-      <div class="tip-text">¥700 für unbegrenzte Busfahrten in Kyoto. Deckt Higashiyama, Arashiyama, Fushimi ab.</div>
-    </div>
-    <div class="tip-card">
-      <div class="tip-emoji">📸</div>
-      <div class="tip-title">Arashiyama morgens</div>
-      <div class="tip-text">Bambuswald vor 8 Uhr besuchen – danach überfüllt. Abends ist auch gut (letzte Bahn zurück checken).</div>
-    </div>
-  </div>
-
-  <!-- KYOTO TAG 1 -->
-  <div class="day-card">
-    <div class="day-header">
-      <div>
-        <div class="day-label">Tag 7 — Anreise & Higashiyama</div>
-        <div class="day-theme">Fushimi Inari · Kiyomizudera · Gion abends</div>
-      </div>
-      <div class="day-date">30. Mai</div>
+  <div class="day-block">
+    <div class="day-label-row">
+      <span class="day-num">Tag 11</span>
+      <span class="day-title">Morgenmarkt · Altstadt · Hida Village</span>
+      <span class="day-date-tag">3. November</span>
+      <span class="day-theme">Sake · Handwerk · Koyo überall</span>
     </div>
     <div class="timeline">
 
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">06:30</span></div>
-        <div class="content-col">
-          <div class="item-type type-sight"><span class="item-dot dot-sight"></span>Highlight</div>
-          <div class="item-name">Fushimi Inari-Taisha</div>
-          <div class="item-detail">⭐ 4.6 · Vor dem Shinkansen! Ryo früh hoch auf Miyajima, Fähre 06:00 zurück, Zug nach Fushimi. Torii ohne Menschen – einmalig.</div>
-          <div class="item-tip">💡 Miyajima Fähre ab 06:25 · Hiroshima → Inari Station 08:10 · 1 Std Torii dann weiter nach Kyoto</div>
+      <div class="tl-item">
+        <div class="tl-time">07:00</div>
+        <div class="tl-line"><div class="tl-dot dot-food"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-simple">
+            <div class="item-type type-food">Markt</div>
+            <div class="item-name" style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;margin-bottom:4px;">Jinya-mae Morgenmarkt</div>
+            <div class="item-detail" style="font-size:12px;color:var(--ink2);">Täglich bis ca. 12 Uhr. Lokale Bauern, Tsukemono, Blumen, Handwerk. Sehr authentisch.</div>
+          </div>
         </div>
       </div>
 
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">10:00</span></div>
-        <div class="content-col">
-          <div class="item-type type-food"><span class="item-dot dot-food"></span>Frühstück</div>
-          <div class="item-name">Breakfast Kyoto ogawasyouyaku R.</div>
-          <div class="item-detail">⭐ 4.9 · 3.000–4.000 ¥ · Eines der begehrtesten Frühstückslokale Kyotos. Vorab reservieren!</div>
-          <div class="transit-pill">🚃 Inari → Kyoto Station → Hotel · Gepäck abgeben</div>
+      <div class="tl-item">
+        <div class="tl-time">09:00</div>
+        <div class="tl-line"><div class="tl-dot dot-sight"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-card">
+            <img class="item-img" src="https://images.unsplash.com/photo-1551641506-ee5bf4cb45f1?w=800&q=80" alt="Sanmachi Suji" loading="lazy">
+            <div class="item-card-inner">
+              <div class="item-type type-sight">🍁 Koyo Peak</div>
+              <div class="item-name">Sanmachi Suji</div>
+              <div class="item-detail">Historische Sake-Brauereigassen mit Sugidama (Zedarnball). Sake-Verkostungen, Miso-Shops, Lackerware. Im November: Herbstlaub über den Gassen.</div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">12:00</span></div>
-        <div class="content-col">
-          <div class="item-type type-sight"><span class="item-dot dot-sight"></span>Tempel</div>
-          <div class="item-name">Kiyomizudera</div>
-          <div class="item-detail">⭐ 4.6 · Holzterrasse über dem Wald. Anschließend Ninenzaka und Sannenzaka hinunterschlendern – schönste Straßen Kyotos.</div>
-          <div class="transit-pill">🚌 Bus 206 → Kiyomizumichi · 20 Min · ¥230</div>
+      <div class="tl-item">
+        <div class="tl-time">11:00</div>
+        <div class="tl-line"><div class="tl-dot dot-sight"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-card">
+            <img class="item-img" src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?w=800&q=80" alt="Hida Folk Village" loading="lazy">
+            <div class="item-card-inner">
+              <div class="item-type type-sight">🍁 Koyo Highlight</div>
+              <div class="item-name">Hida Folk Village</div>
+              <div class="item-detail">Gassho-zukuri-Häuser im Freilichtmuseum. Herbstlaub ringsherum – ein absolutes Bilderbuch-Bild. 20 Min Bus vom Zentrum.</div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">14:30</span></div>
-        <div class="content-col">
-          <div class="item-type type-cafe"><span class="item-dot dot-cafe"></span>Café</div>
-          <div class="item-name">Walden Woods Kyoto</div>
-          <div class="item-detail">⭐ 4.4 · Specialty Coffee in Higashiyama. Ruhige Atmosphäre, gutes Gebäck. Perfekte Pause nach Kiyomizudera.</div>
+      <div class="tl-item">
+        <div class="tl-time">13:30</div>
+        <div class="tl-line"><div class="tl-dot dot-food"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-simple">
+            <div class="item-type type-food">Mittagessen</div>
+            <div class="item-name" style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;margin-bottom:4px;">Hida Beef Mittagessen</div>
+            <div class="item-detail" style="font-size:12px;color:var(--ink2);">Mittags günstiger als abends – Hida Beef Sushi oder Don. Nicht verpassen!</div>
+          </div>
         </div>
       </div>
 
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">16:00</span></div>
-        <div class="content-col">
-          <div class="item-type type-sight"><span class="item-dot dot-sight"></span>Tempel</div>
-          <div class="item-name">Hökan-ji (Yasaka Pagoda)</div>
-          <div class="item-detail">⭐ 4.6 · Das ikonische Foto mit Pagode und Machiya-Häusern – am besten Nachmittag bei warmem Licht.</div>
-        </div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">17:30</span></div>
-        <div class="content-col">
-          <div class="item-type type-sight"><span class="item-dot dot-sight"></span>Viertel</div>
-          <div class="item-name">Gion Spaziergang</div>
-          <div class="item-detail">Hanamikoji-Straße bei Dämmerung – Chance auf Geishas. Ruhige Seitenstraßen Shirakawa entlang laufen.</div>
-        </div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">19:00</span></div>
-        <div class="content-col">
-          <div class="item-type type-food"><span class="item-dot dot-food"></span>Abendessen</div>
-          <div class="item-name">Otachidokoro Sushi Ki</div>
-          <div class="item-detail">⭐ 4.8 · Sushi · Reservierung essentiell. Eines der besten Sushi-Lokale Kyotos in dieser Preisklasse.</div>
+      <div class="tl-item">
+        <div class="tl-time">15:30</div>
+        <div class="tl-line"><div class="tl-dot dot-cafe"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-simple">
+            <div class="item-type type-cafe">Teehaus</div>
+            <div class="item-name" style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;margin-bottom:4px;">Saryo Zeze</div>
+            <div class="item-detail" style="font-size:12px;color:var(--ink2);">⭐ 4.3 · Ruhiges Teehaus in Takayama. Matcha + Wagashi, wunderschöne Einrichtung.</div>
+          </div>
         </div>
       </div>
 
     </div>
   </div>
 
-  <!-- KYOTO TAG 2 -->
-  <div class="day-card">
-    <div class="day-header">
-      <div>
-        <div class="day-label">Tag 8 — Arashiyama & Nishiki</div>
-        <div class="day-theme">Bambuswald · Teezeremonie · Markt</div>
-      </div>
-      <div class="day-date">31. Mai</div>
+  <div class="day-block">
+    <div class="day-label-row">
+      <span class="day-num">Tag 12</span>
+      <span class="day-title">Jigokudani · Schneemaffen</span>
+      <span class="day-date-tag">4. November</span>
+      <span class="day-theme">Tagesausflug Nagano · Affen im Onsen</span>
     </div>
+
+    <div class="luggage-card">
+      <span>📦</span>
+      <span><strong>Gepäck-Reminder:</strong> Heute bis 12:00 Uhr Koffer für Takkyubin nach Osaka aufgeben.</span>
+    </div>
+
     <div class="timeline">
 
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">07:00</span></div>
-        <div class="content-col">
-          <div class="item-type type-sight"><span class="item-dot dot-sight"></span>Highlight</div>
-          <div class="item-name">Arashiyama Bamboo Forest</div>
-          <div class="item-detail">⭐ 4.3 · Vor 8 Uhr! Danach extrem voll. 30 Min reichen für den Wald. Dann Tenryuji-Garten nebenan.</div>
-          <div class="transit-pill">🚌 Bus 28 ab Kyoto Station → Arashiyama · 30 Min</div>
+      <div class="tl-item">
+        <div class="tl-time">07:00</div>
+        <div class="tl-line"><div class="tl-dot dot-transit"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-simple">
+            <div class="item-type type-transit">Frühabfahrt</div>
+            <div class="item-name" style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;margin-bottom:4px;">Takayama → Nagano → Yudanaka</div>
+            <div class="item-detail" style="font-size:12px;color:var(--ink2);">Wideview Hida → Matsumoto, dann Limited Express → Nagano, dann Nagano Dentetsu → Yudanaka. Ca. 3 Std.</div>
+            <div class="transit-pill">🚃 Takayama 07:02 → Yudanaka ~10:45</div>
+          </div>
         </div>
       </div>
 
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">09:00</span></div>
-        <div class="content-col">
-          <div class="item-type type-sight"><span class="item-dot dot-sight"></span>Tempel</div>
-          <div class="item-name">Saihō-ji (Moos-Tempel) oder Adashino Nenbutsuji</div>
-          <div class="item-detail">⭐ 4.5 / 4.3 · Saihoji braucht Voranmeldung per Post – wenn vorgebucht, unbedingt! Adashino Nenbutsuji ist spontan zugänglich.</div>
-          <div class="item-tip">💡 Saihoji Anmeldung: info@saihoji-kokedera.com – mind. 2 Monate vorher!</div>
+      <div class="tl-item">
+        <div class="tl-time">11:00</div>
+        <div class="tl-line"><div class="tl-dot dot-wishlist"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-card">
+            <img class="item-img" src="https://images.unsplash.com/photo-1547483238-2cbf881a559f?w=800&q=80" alt="Snow monkeys" loading="lazy">
+            <div class="item-card-inner">
+              <div class="item-type type-wishlist">✓ Wishlist</div>
+              <div class="item-name">Jigokudani · Schneemaffen im Onsen</div>
+              <div class="item-detail">⭐ 4.5 · 2 km Waldweg (30 Min) zum Park. Japanische Makaken im natürlichen Onsen – einzigartiges Erlebnis weltweit. Im November aktiv!</div>
+              <div class="wishlist-tag">♨️ Onsen (Affen!)</div>
+              <div class="item-tip">💡 Im November sind die Affen am aktivsten im warmen Wasser – perfektes Timing!</div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">11:00</span></div>
-        <div class="content-col">
-          <div class="item-type type-activity"><span class="item-dot dot-activity"></span>Erlebnis</div>
-          <div class="item-name">THE TEA CEREMONY GION Orizuru</div>
-          <div class="item-detail">⭐ 5.0 · Buchung vorab. Ca. 60 Min, englischsprachig, mitten in Gion. Danach Nishiki-Markt.</div>
-          <div class="transit-pill">🚌 Bus zurück nach Gion · 25 Min</div>
-        </div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">13:00</span></div>
-        <div class="content-col">
-          <div class="item-type type-food"><span class="item-dot dot-food"></span>Mittagessen</div>
-          <div class="item-name">Nishiki-Markt Streetfood</div>
-          <div class="item-detail">⭐ 4.3 · Kyotos Küche: Tamagoyaki, Tsukemono, frische Tofu-Snacks. Markt ist eng – früh Mittag weniger voll.</div>
-        </div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">14:30</span></div>
-        <div class="content-col">
-          <div class="item-type type-cafe"><span class="item-dot dot-cafe"></span>Café</div>
-          <div class="item-name">YUGEN · Kyoto Shijo</div>
-          <div class="item-detail">⭐ 4.6 · Specialty Coffee + Matcha in Shijo-Lage. Ruhige, designte Atmosphäre. Perfekte Nachmittagspause.</div>
-        </div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">15:30</span></div>
-        <div class="content-col">
-          <div class="item-type type-sight"><span class="item-dot dot-sight"></span>Museum</div>
-          <div class="item-name">Kawai Kanjiro's House</div>
-          <div class="item-detail">⭐ 4.7 · Wohnhaus und Werkstatt des berühmten Töpfers. Klein, ruhig, sehr schön. 300m vom Philosopher's Path.</div>
-        </div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">16:30</span></div>
-        <div class="content-col">
-          <div class="item-type type-sight"><span class="item-dot dot-sight"></span>Spaziergang</div>
-          <div class="item-name">Philosopher's Path (Tetsugaku no Michi)</div>
-          <div class="item-detail">⭐ 4.6 · Kanal-Spazierweg, historisch und sehr ruhig. Im Mai grün und blühend. 2 km, ca. 40 Min.</div>
-        </div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">18:30</span></div>
-        <div class="content-col">
-          <div class="item-type type-food"><span class="item-dot dot-food"></span>Abendessen</div>
-          <div class="item-name">M&M Maison Kyoto</div>
-          <div class="item-detail">⭐ 4.6 · 2.000–3.000 ¥ · Französisch-japanisches Frühstück / Dinner. Eines der fotogensten Lokale Kyotos.</div>
+      <div class="tl-item">
+        <div class="tl-time">15:00</div>
+        <div class="tl-line"><div class="tl-dot dot-transit"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-simple">
+            <div class="item-type type-transit">Rückfahrt</div>
+            <div class="item-name" style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;margin-bottom:4px;">Yudanaka → Takayama</div>
+            <div class="item-detail" style="font-size:12px;color:var(--ink2);">Gleiche Route zurück. Abendessen in Takayama. Letzter Abend in den Alpen.</div>
+            <div class="transit-pill">🚃 Yudanaka 15:30 → Takayama ~19:00</div>
+          </div>
         </div>
       </div>
 
     </div>
   </div>
+</section>
 
-  <!-- KYOTO TAG 3 -->
-  <div class="day-card">
-    <div class="day-header">
-      <div>
-        <div class="day-label">Tag 9 — Teehäuser & Abgelegenes</div>
-        <div class="day-theme">Nakamura Tokichi · Otagi Tempel · Abend in Kyoto</div>
-      </div>
-      <div class="day-date">1. Juni</div>
-    </div>
-    <div class="timeline">
-
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">08:00</span></div>
-        <div class="content-col">
-          <div class="item-type type-cafe"><span class="item-dot dot-cafe"></span>Frühstück / Tee</div>
-          <div class="item-name">Nakamura Tokichi Honten</div>
-          <div class="item-detail">⭐ 4.4 · Traditionelles Teehaus, 1.000–2.000 ¥ · Matcha-Parfait und Teeset. Am Biwako-Kanal. Schlange früh kürzer.</div>
-          <div class="transit-pill">🚃 Keihan Line → Chushojima · 15 Min</div>
-        </div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">10:00</span></div>
-        <div class="content-col">
-          <div class="item-type type-sight"><span class="item-dot dot-sight"></span>Versteckter Tempel</div>
-          <div class="item-name">Otagi Nenbutsuji Temple</div>
-          <div class="item-detail">⭐ 4.7 · 1.200 handgeschnitzte, moosbewachsene Steinmönche. Wenig bekannt, fast nie überfüllt. Sagano-Gegend.</div>
-          <div class="transit-pill">🚌 Bus nach Sagano · 40 Min</div>
-        </div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">12:00</span></div>
-        <div class="content-col">
-          <div class="item-type type-sight"><span class="item-dot dot-sight"></span>Tempel</div>
-          <div class="item-name">Daigo-ji</div>
-          <div class="item-detail">⭐ 4.4 · Einer der schönsten Tempel Kyotos – fünfstöckige Pagode, riesiges Gelände, wenige Touristen. Südlicher Stadtrand.</div>
-          <div class="transit-pill">🚃 Tōzai Line → Daigo · 20 Min</div>
-        </div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">14:00</span></div>
-        <div class="content-col">
-          <div class="item-type type-cafe"><span class="item-dot dot-cafe"></span>Tee</div>
-          <div class="item-name">Jinjiro Tea Shop</div>
-          <div class="item-detail">⭐ 4.9 · Kleiner Teeladen, curated Auswahl, ruhige Atmosphäre. Für Mitbringsel und Verkostung.</div>
-        </div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">15:30</span></div>
-        <div class="content-col">
-          <div class="item-type type-food"><span class="item-dot dot-food"></span>Snack</div>
-          <div class="item-name">Kazariya · Japanische Süßigkeiten</div>
-          <div class="item-detail">⭐ 4.5 · Traditionelle Wagashi, Abiyaki. Nahe Imamiya-Schrein. Seit 400 Jahren dasselbe Rezept.</div>
-        </div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">17:00</span></div>
-        <div class="content-col">
-          <div class="item-type type-cafe"><span class="item-dot dot-cafe"></span>Café</div>
-          <div class="item-name">Blue bottle Coffee Kyoto</div>
-          <div class="item-detail">⭐ 4.4 · Im historischen Machiya-Haus. Garten, ruhig, sehr schön designed. Nachmittagskaffee vor dem Dinner.</div>
-        </div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">19:00</span></div>
-        <div class="content-col">
-          <div class="item-type type-food"><span class="item-dot dot-food"></span>Abendessen</div>
-          <div class="item-name">Sugari · Ramen</div>
-          <div class="item-detail">⭐ 4.4 · Letztes Abendessen in Kyoto – berühmte Kyoto-Ramen. Kurze Schlange möglich.</div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════ TAKAYAMA ═══════════════════════════════ -->
-<div class="city-section" id="takayama">
-  <div class="city-header">
+<!-- ══════════════════════════════════════════════════
+     OSAKA
+══════════════════════════════════════════════════ -->
+<section class="city-section" id="osaka">
+  <div class="city-hero">
     <div>
-      <div class="city-name">高山 Takayama</div>
-      <div class="city-dates">2. – 5. Juni · 3 Nächte via Osaka/Nara</div>
-    </div>
-    <div class="city-hotel">
-      <div class="hotel-label">Unterkunft</div>
-      <div class="hotel-name">THE MACHIYA HOTEL</div>
-      <div class="hotel-rating">⭐ 4.7 · Altstadt-Lage</div>
-    </div>
-  </div>
-
-  <div class="shinkansen-card">
-    <div class="shinkansen-icon">🚄</div>
-    <div class="shinkansen-info">
-      <div class="shinkansen-route">Kyoto → Osaka → Nara (Tagesausflug) → Takayama</div>
-      <div class="shinkansen-meta">Kyoto → Osaka Shinkansen (15 Min) · Dann Nara Tagesausflug · Dann Osaka → Nagoya → Takayama (Wideview Hida Limited Express)</div>
-    </div>
-    <div class="shinkansen-times">
-      <div class="stime">
-        <div class="stime-hour">08:00</div>
-        <div class="stime-label">Osaka</div>
+      <div class="city-eyebrow">06 — Letzte Station</div>
+      <div class="city-name-block">
+        <div class="city-name">Osaka</div>
+        <div class="city-name-jp">大阪</div>
       </div>
-      <div class="stime-arrow">→</div>
-      <div class="stime-duration">Nara Tagesausflug</div>
-      <div class="stime-arrow">→</div>
-      <div class="stime">
-        <div class="stime-hour">17:00</div>
-        <div class="stime-label">Takayama</div>
-      </div>
+    </div>
+    <div class="city-dates-block">
+      <div class="city-dates">5 — 7 November</div>
+      <div class="city-nights">2 Nächte · Abschluss</div>
     </div>
   </div>
 
-  <div class="tips-grid">
-    <div class="tip-card">
-      <div class="tip-emoji">🐒</div>
-      <div class="tip-title">Jigokudani (Schneeaffen)</div>
-      <div class="tip-text">Von Takayama aus: Nagano-Richtung. Tagesausflug ca. 3 Std. Affen im heißen Onsen-Wasser – unbedingt früh!</div>
-    </div>
-    <div class="tip-card">
-      <div class="tip-emoji">🏘️</div>
-      <div class="tip-title">Sanmachi Suji</div>
-      <div class="tip-text">Historische Brauereiviertel-Gassen. Sake-Verkostung, Miso-Shops, Lackerwarenhändler. Morgens sehr ruhig.</div>
-    </div>
-  </div>
-
-  <div class="day-card">
-    <div class="day-header">
-      <div>
-        <div class="day-label">Tag 10 — Osaka & Nara Tagesausflug</div>
-        <div class="day-theme">Osaka kurz · Nara-Park · Weiter nach Takayama</div>
-      </div>
-      <div class="day-date">2. Juni</div>
-    </div>
-    <div class="timeline">
-
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">08:00</span></div>
-        <div class="content-col">
-          <div class="item-type type-transit"><span class="item-dot dot-transit"></span>Kyoto → Osaka</div>
-          <div class="item-name">JR Shinkansen oder Hankyu</div>
-          <div class="item-detail">Kyoto → Osaka Umeda · JR Shinkansen 15 Min oder Hankyu Kyoto Line 40 Min (günstiger). Gepäck nach Takayama vorschicken!</div>
-        </div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">09:00</span></div>
-        <div class="content-col">
-          <div class="item-type type-sight"><span class="item-dot dot-sight"></span>Park</div>
-          <div class="item-name">Nara-Park & Tōdai-ji</div>
-          <div class="item-detail">⭐ 4.6 · Freilaufende Hirsche, riesiger Bronzebuddha. 45 Min von Osaka Namba (Kintetsu Nara Line). Früh = kein Gedränge.</div>
-          <div class="transit-pill">🚃 Osaka Namba → Nara · Kintetsu · 45 Min · ¥680</div>
-        </div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">12:00</span></div>
-        <div class="content-col">
-          <div class="item-type type-sight"><span class="item-dot dot-sight"></span>Schrein</div>
-          <div class="item-name">Kasuga Taisha & Nara Altstadt</div>
-          <div class="item-detail">Kasuga Grand Shrine mit tausend Laternen, dann Naramachi (historisches Kaufmannsviertel) durchschlendern.</div>
-        </div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">14:00</span></div>
-        <div class="content-col">
-          <div class="item-type type-transit"><span class="item-dot dot-transit"></span>Nara → Nagoya → Takayama</div>
-          <div class="item-name">Wideview Hida Limited Express</div>
-          <div class="item-detail">Nara → Nagoya (Kintetsu 45 Min) · Nagoya → Takayama (Hida Express ~2:30 Std). Landschaft traumhaft!</div>
-          <div class="transit-pill">🚃 Nagoya → Takayama · Wideview Hida · ~2:30 Std · ¥5.610</div>
-        </div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">18:30</span></div>
-        <div class="content-col">
-          <div class="item-type type-stay"><span class="item-dot dot-stay"></span>Ankunft</div>
-          <div class="item-name">THE MACHIYA HOTEL TAKAYAMA</div>
-          <div class="item-detail">⭐ 4.7 · Einchecken, Abendessen in der Altstadt. Takayama-Ramen oder Hida-Rindfleisch zum Einstieg.</div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <div class="day-card">
-    <div class="day-header">
-      <div>
-        <div class="day-label">Tag 11 — Takayama Altstadt</div>
-        <div class="day-theme">Sanmachi · Morgenmarkt · Sake-Brauereien</div>
-      </div>
-      <div class="day-date">3. Juni</div>
-    </div>
-    <div class="timeline">
-
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">07:00</span></div>
-        <div class="content-col">
-          <div class="item-type type-food"><span class="item-dot dot-food"></span>Markt</div>
-          <div class="item-name">Jinya-mae Morgenmarkt</div>
-          <div class="item-detail">Täglich bis ca. 12 Uhr. Lokale Bauern verkaufen Gemüse, Tsukemono, Blumen, Handwerk. Sehr authentisch.</div>
-        </div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">09:00</span></div>
-        <div class="content-col">
-          <div class="item-type type-sight"><span class="item-dot dot-sight"></span>Altstadt</div>
-          <div class="item-name">Sanmachi Suji</div>
-          <div class="item-detail">Historische Sake-Brauereigassen mit Sugidama (Zedarball) als Zeichen. Sake-Verkostungen, Miso-Shops, Lackerware.</div>
-        </div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">11:00</span></div>
-        <div class="content-col">
-          <div class="item-type type-sight"><span class="item-dot dot-sight"></span>Freilichtmuseum</div>
-          <div class="item-name">Hida Folk Village (Hida no Sato)</div>
-          <div class="item-detail">Gassho-zukuri-Häuser aus der Region, umgebaut ins Freilichtmuseum. 20 Min Bus vom Zentrum.</div>
-        </div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">14:00</span></div>
-        <div class="content-col">
-          <div class="item-type type-food"><span class="item-dot dot-food"></span>Mittagessen</div>
-          <div class="item-name">Hida-Rindfleisch Mittagessen</div>
-          <div class="item-detail">Takayama ist berühmt für Hida Beef (ähnlich Wagyu). Mittags günstiger als abends – Hida Beef Sushi oder Don.</div>
-        </div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">15:30</span></div>
-        <div class="content-col">
-          <div class="item-type type-cafe"><span class="item-dot dot-cafe"></span>Café</div>
-          <div class="item-name">Saryo Zeze</div>
-          <div class="item-detail">⭐ 4.3 · Ruhiges Teehaus in Takayama. Japanische Sweets, Matcha, wunderschöne Einrichtung.</div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-
-  <div class="day-card">
-    <div class="day-header">
-      <div>
-        <div class="day-label">Tag 12 — Jigokudani Schneemaffen</div>
-        <div class="day-theme">Tagesausflug nach Nagano · Wilde Affen im Onsen</div>
-      </div>
-      <div class="day-date">4. Juni</div>
-    </div>
-    <div class="timeline">
-
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">07:00</span></div>
-        <div class="content-col">
-          <div class="item-type type-transit"><span class="item-dot dot-transit"></span>Frühabfahrt</div>
-          <div class="item-name">Takayama → Nagano → Yudanaka</div>
-          <div class="item-detail">Wideview Hida nach Matsumoto, dann Limited Express nach Nagano, dann Nagano Dentetsu nach Yudanaka. Ca. 3 Std.</div>
-          <div class="transit-pill">🚃 Takayama 07:02 → Nagano ~10:00 → Yudanaka ~10:45</div>
-          <div class="item-tip">💡 Im Mai sind die Affen noch im Park – im Sommer ziehen sie in den Wald. Früh sind sie am aktivsten im Wasser!</div>
-        </div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">11:00</span></div>
-        <div class="content-col">
-          <div class="item-type type-sight"><span class="item-dot dot-sight"></span>Highlight</div>
-          <div class="item-name">Jigokudani Yaen Koen</div>
-          <div class="item-detail">⭐ 4.5 · 2 km Waldweg (30 Min) zum Park. Japanische Makaken im natürlichen Onsen – ein einzigartiges Erlebnis weltweit. 2–3 Std einplanen.</div>
-        </div>
-      </div>
-
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">15:00</span></div>
-        <div class="content-col">
-          <div class="item-type type-transit"><span class="item-dot dot-transit"></span>Rückfahrt</div>
-          <div class="item-name">Yudanaka → Nagano → Takayama</div>
-          <div class="item-detail">Gleiche Route zurück. Abendessen in Takayama.</div>
-          <div class="transit-pill">🚃 Yudanaka 15:30 → Takayama ~19:00</div>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════ OSAKA ═══════════════════════════════ -->
-<div class="city-section" id="osaka">
-  <div class="city-header">
+  <div class="hotel-placeholder">
+    <div class="hotel-icon">♨️</div>
     <div>
-      <div class="city-name">大阪 Osaka</div>
-      <div class="city-dates">5. – 7. Juni · 2 Nächte</div>
+      <div class="hotel-label-sm">Unterkunft · Onsen-Hotel</div>
+      <div class="hotel-name-placeholder">Hotel TBD · Nakazakicho / Tanimachi</div>
     </div>
-    <div class="city-hotel">
-      <div class="hotel-label">Unterkunft</div>
-      <div class="hotel-name">Dormy Inn Tanimachi</div>
-      <div class="hotel-rating">⭐ 4.3 · Onsen · Tanimachi</div>
+    <div class="hotel-rating">⭐ Platzhalter</div>
+  </div>
+
+  <div class="transfer-card">
+    <div class="transfer-icon">🚄</div>
+    <div class="transfer-info">
+      <div class="transfer-route">Takayama → Osaka</div>
+      <div class="transfer-meta">Wideview Hida → Nagoya (2:30 Std) · dann Shinkansen → Shin-Osaka (45 Min)</div>
+    </div>
+    <div class="transfer-times">
+      <div class="t-time"><div class="t-hour">08:00</div><div class="t-label">Takayama</div></div>
+      <div class="t-arrow">→</div>
+      <div class="t-dur">~3:30 Std</div>
+      <div class="t-arrow">→</div>
+      <div class="t-time"><div class="t-hour">11:30</div><div class="t-label">Osaka</div></div>
     </div>
   </div>
 
-  <div class="shinkansen-card">
-    <div class="shinkansen-icon">🚄</div>
-    <div class="shinkansen-info">
-      <div class="shinkansen-route">Takayama → Osaka</div>
-      <div class="shinkansen-meta">Wideview Hida nach Nagoya · Dann Shinkansen nach Shin-Osaka · Ca. 3:30 Std gesamt</div>
-    </div>
-    <div class="shinkansen-times">
-      <div class="stime">
-        <div class="stime-hour">08:00</div>
-        <div class="stime-label">Takayama</div>
-      </div>
-      <div class="stime-arrow">→</div>
-      <div class="stime-duration">~3:30 Std</div>
-      <div class="stime-arrow">→</div>
-      <div class="stime">
-        <div class="stime-hour">11:30</div>
-        <div class="stime-label">Osaka</div>
-      </div>
+  <!-- WISHLIST FINAL -->
+  <div style="margin-bottom:40px;">
+    <div style="font-family:'DM Mono',monospace;font-size:9px;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-bottom:16px;">Wishlist — Erledigt ✓</div>
+    <div class="wishlist-summary">
+      <div class="wish-item"><div class="wish-check">✓</div><div class="wish-text">🎤 Karaoke<br>Shinjuku Tag 1</div></div>
+      <div class="wish-item"><div class="wish-check">✓</div><div class="wish-text">🏋️ Sumo Practice<br>Ryogoku Tag 2</div></div>
+      <div class="wish-item"><div class="wish-check">✓</div><div class="wish-text">💆 Head Spa<br>Omotesando Tag 3</div></div>
+      <div class="wish-item"><div class="wish-check">✓</div><div class="wish-text">🍵 Teezeremonie<br>Gion Tag 8</div></div>
+      <div class="wish-item"><div class="wish-check">✓</div><div class="wish-text">🏯 Ryokan<br>Hakone + Miyajima</div></div>
+      <div class="wish-item"><div class="wish-check">✓</div><div class="wish-text">🏘️ Machiya<br>Kyoto</div></div>
+      <div class="wish-item"><div class="wish-check">✓</div><div class="wish-text">♨️ Onsen<br>4× auf der Reise</div></div>
+      <div class="wish-item"><div class="wish-check">✓</div><div class="wish-text">🥞 Okonomiyaki<br>Hiroshima Tag 6</div></div>
+      <div class="wish-item"><div class="wish-check">✓</div><div class="wish-text">🐙 Takoyaki<br>Osaka Kuromon</div></div>
+      <div class="wish-item"><div class="wish-check">✓</div><div class="wish-text">🍣 Omakase<br>Kyoto Tag 9</div></div>
     </div>
   </div>
 
-  <div class="tips-grid">
-    <div class="tip-card">
-      <div class="tip-emoji">🍜</div>
-      <div class="tip-title">Osaka = Essen</div>
-      <div class="tip-text">„Kuidaore" = sich zu Tode essen. Osaka ist Japans Foodkapital. Takoyaki, Okonomiyaki, Ramen überall.</div>
-    </div>
-    <div class="tip-card">
-      <div class="tip-emoji">🌃</div>
-      <div class="tip-title">Dotonbori abends</div>
-      <div class="tip-text">Tagsüber überlaufen – nachts ab 21 Uhr hat es einen anderen, lebhafteren Charakter. Kurzer Walk, nicht übernachten.</div>
-    </div>
-    <div class="tip-card">
-      <div class="tip-emoji">🏯</div>
-      <div class="tip-title">Osaka Castle morgens</div>
-      <div class="tip-text">Park öffnet um 9 Uhr. Morgens mit wenig Besuchern und schönem Licht für Fotos.</div>
-    </div>
-  </div>
-
-  <div class="day-card">
-    <div class="day-header">
-      <div>
-        <div class="day-label">Tag 13 — Anreise & Stadtleben</div>
-        <div class="day-theme">Nakazakicho · Kuromon Market · Namba</div>
-      </div>
-      <div class="day-date">5. Juni</div>
+  <div class="day-block">
+    <div class="day-label-row">
+      <span class="day-num">Tag 13</span>
+      <span class="day-title">Anreise · Nakazakicho · Kuromon · Namba</span>
+      <span class="day-date-tag">5. November</span>
+      <span class="day-theme">Boho-Viertel · Markt · Abend Osaka</span>
     </div>
     <div class="timeline">
 
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">11:30</span></div>
-        <div class="content-col">
-          <div class="item-type type-stay"><span class="item-dot dot-stay"></span>Check-in</div>
-          <div class="item-name">Dormy Inn Tanimachi</div>
-          <div class="item-detail">⭐ 4.3 · Gepäck abgeben, Onsen für abends vormerken. Gratis-Ramen von 21:30–23:00!</div>
+      <div class="tl-item">
+        <div class="tl-time">11:30</div>
+        <div class="tl-line"><div class="tl-dot dot-stay"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-simple">
+            <div class="item-type type-stay">Check-in</div>
+            <div class="item-name" style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;margin-bottom:4px;">Hotel Osaka · Gepäck abgeben</div>
+            <div class="item-detail" style="font-size:12px;color:var(--ink2);">Gratis-Ramen ab 21:30 Uhr + Onsen für abends vormerken!</div>
+          </div>
         </div>
       </div>
 
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">12:30</span></div>
-        <div class="content-col">
-          <div class="item-type type-sight"><span class="item-dot dot-sight"></span>Viertel</div>
-          <div class="item-name">Nakazakicho</div>
-          <div class="item-detail">Osakes Bohème-Viertel: Vintage-Cafés, Galerien, kleine Läden in alten Nagaya-Häusern. Sehr fotogen, wenig Touristen.</div>
-          <div class="transit-pill">🚃 Tanimachi 4-chome → Nakazakicho · Metro · 10 Min</div>
+      <div class="tl-item">
+        <div class="tl-time">12:30</div>
+        <div class="tl-line"><div class="tl-dot dot-sight"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-card">
+            <img class="item-img" src="https://images.unsplash.com/photo-1551615593-ef5fe247e8f7?w=800&q=80" alt="Nakazakicho" loading="lazy">
+            <div class="item-card-inner">
+              <div class="item-type type-sight">Viertel</div>
+              <div class="item-name">Nakazakicho</div>
+              <div class="item-detail">Osakes Bohème-Viertel: Vintage-Cafés, Galerien, alte Nagaya-Häuser. Wenig Touristen, sehr fotogen.</div>
+              <div class="transit-pill">🚃 Tanimachi → Nakazakicho · Metro · 10 Min</div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">14:00</span></div>
-        <div class="content-col">
-          <div class="item-type type-food"><span class="item-dot dot-food"></span>Markt</div>
-          <div class="item-name">Kuromon Market</div>
-          <div class="item-detail">⭐ 4.1 · Osakas Küche: frische Meeresfrüchte, Wagyu, Riesenkrabben. Streetfood direkt vom Markt essen.</div>
-          <div class="transit-pill">🚃 Nakazakicho → Nipponbashi · Metro · 15 Min</div>
+      <div class="tl-item">
+        <div class="tl-time">14:00</div>
+        <div class="tl-line"><div class="tl-dot dot-wishlist"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-card">
+            <img class="item-img" src="https://images.unsplash.com/photo-1617196034183-421b4040ed20?w=800&q=80" alt="Takoyaki Osaka" loading="lazy">
+            <div class="item-card-inner">
+              <div class="item-type type-wishlist">✓ Wishlist</div>
+              <div class="item-name">Kuromon Market · Takoyaki</div>
+              <div class="item-detail">⭐ 4.1 · Osakas Küche: frische Meeresfrüchte, Wagyu, und natürlich Takoyaki direkt vom Markt! 🐙</div>
+              <div class="transit-pill">🚃 Nakazakicho → Nipponbashi · Metro · 15 Min</div>
+              <div class="wishlist-tag">🐙 Takoyaki</div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">16:00</span></div>
-        <div class="content-col">
-          <div class="item-type type-sight"><span class="item-dot dot-sight"></span>Aussicht</div>
-          <div class="item-name">Abeno Harukas Sky View</div>
-          <div class="item-detail">⭐ 4.2 · Höchstes Gebäude Osakas, 300m. Nachmittag für gute Lichtverhältnisse. Ticket ¥1.500.</div>
-          <div class="transit-pill">🚃 Nipponbashi → Tennoji · Metro · 10 Min</div>
+      <div class="tl-item">
+        <div class="tl-time">16:00</div>
+        <div class="tl-line"><div class="tl-dot dot-sight"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-simple">
+            <div class="item-type type-sight">Aussicht</div>
+            <div class="item-name" style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;margin-bottom:4px;">Abeno Harukas Sky View</div>
+            <div class="item-detail" style="font-size:12px;color:var(--ink2);">⭐ 4.2 · 300m hohes Gebäude, Nachmittag für gutes Licht. ¥1.500</div>
+            <div class="transit-pill">🚃 Nipponbashi → Tennoji · Metro · 10 Min</div>
+          </div>
         </div>
       </div>
 
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">17:30</span></div>
-        <div class="content-col">
-          <div class="item-type type-sight"><span class="item-dot dot-sight"></span>Viertel</div>
-          <div class="item-name">Shinsekai & Tsutenkaku</div>
-          <div class="item-detail">⭐ 4.2 · Retro-Viertel, 1950s-Flair, günstige Kushikatsu-Bars. Komplett anderes Osaka als Namba.</div>
+      <div class="tl-item">
+        <div class="tl-time">17:30</div>
+        <div class="tl-line"><div class="tl-dot dot-sight"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-simple">
+            <div class="item-type type-sight">Viertel · Abends</div>
+            <div class="item-name" style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;margin-bottom:4px;">Shinsekai & Tsutenkaku</div>
+            <div class="item-detail" style="font-size:12px;color:var(--ink2);">⭐ 4.2 · 1950s-Retro-Viertel. Kushikatsu-Bars, ganz anderes Osaka-Feeling.</div>
+          </div>
         </div>
       </div>
 
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">19:30</span></div>
-        <div class="content-col">
-          <div class="item-type type-food"><span class="item-dot dot-food"></span>Abendessen</div>
-          <div class="item-name">Ebimaru Ramen</div>
-          <div class="item-detail">⭐ 4.5 · 1.000–2.000 ¥ · Einer der besten Ramen-Spots Osakas. Warteschlange möglich, aber geht schnell.</div>
+      <div class="tl-item">
+        <div class="tl-time">19:30</div>
+        <div class="tl-line"><div class="tl-dot dot-food"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-simple">
+            <div class="item-type type-food">Abendessen</div>
+            <div class="item-name" style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;margin-bottom:4px;">Ebimaru Ramen</div>
+            <div class="item-detail" style="font-size:12px;color:var(--ink2);">⭐ 4.5 · 1.000–2.000 ¥ · Einer der besten Ramen-Spots Osakas.</div>
+          </div>
         </div>
       </div>
 
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">21:30</span></div>
-        <div class="content-col">
-          <div class="item-type type-stay"><span class="item-dot dot-stay"></span>Hotel</div>
-          <div class="item-name">Dormy Inn · Gratis-Ramen & Onsen</div>
-          <div class="item-detail">Yonaki Soba (Gratis-Ramen) im Hotel ab 21:30 Uhr. Dann Onsen zum Abschluss.</div>
+      <div class="tl-item">
+        <div class="tl-time">21:30</div>
+        <div class="tl-line"><div class="tl-dot dot-wishlist"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-simple">
+            <div class="item-type type-wishlist">✓ Wishlist</div>
+            <div class="item-name" style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;margin-bottom:4px;">Gratis-Ramen + Onsen · Hotel</div>
+            <div class="item-detail" style="font-size:12px;color:var(--ink2);">Yonaki Soba (Gratis-Ramen) ab 21:30 Uhr im Hotel. Dann Onsen zum Abschluss. 🍜♨️</div>
+            <div class="wishlist-tag">♨️ Onsen</div>
+          </div>
         </div>
       </div>
 
     </div>
   </div>
 
-  <div class="day-card">
-    <div class="day-header">
-      <div>
-        <div class="day-label">Tag 14 — Letzter Tag · Osaka Castle & Abflug</div>
-        <div class="day-theme">Castle · Namba Yasaka · Dotonbori · Heimreise</div>
-      </div>
-      <div class="day-date">6. Juni</div>
+  <div class="day-block">
+    <div class="day-label-row">
+      <span class="day-num">Tag 14</span>
+      <span class="day-title">Letzter Tag · Castle · Namba · Abflug</span>
+      <span class="day-date-tag">6. November</span>
+      <span class="day-theme">Osaka Castle · Shopping · Heimreise</span>
     </div>
     <div class="timeline">
 
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">08:00</span></div>
-        <div class="content-col">
-          <div class="item-type type-sight"><span class="item-dot dot-sight"></span>Schloss</div>
-          <div class="item-name">Osaka Castle</div>
-          <div class="item-detail">⭐ 4.4 · Morgens öffnet der Park. Schloss innen + Aussicht oben. Im Mai grün und blühend drumherum.</div>
-          <div class="transit-pill">🚃 Tanimachi → Tanimachi 4-chome · direkt · 5 Min</div>
+      <div class="tl-item">
+        <div class="tl-time">08:00</div>
+        <div class="tl-line"><div class="tl-dot dot-sight"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-card">
+            <img class="item-img" src="https://images.unsplash.com/photo-1590559899731-a382839e5549?w=800&q=80" alt="Osaka Castle" loading="lazy">
+            <div class="item-card-inner">
+              <div class="item-type type-sight">Früh · Morgens</div>
+              <div class="item-name">Osaka Castle</div>
+              <div class="item-detail">⭐ 4.4 · Park öffnet 9 Uhr. Früh = wenige Besucher. Im November: Herbstlaub rund ums Schloss 🍁</div>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">10:00</span></div>
-        <div class="content-col">
-          <div class="item-type type-sight"><span class="item-dot dot-sight"></span>Schrein</div>
-          <div class="item-name">Namba Yasaka-Schrein</div>
-          <div class="item-detail">⭐ 4.5 · Der riesige Löwenkopf-Schrein. Einzigartig, sehr fotogen, kaum Touristen vor 11 Uhr.</div>
+      <div class="tl-item">
+        <div class="tl-time">10:00</div>
+        <div class="tl-line"><div class="tl-dot dot-sight"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-simple">
+            <div class="item-type type-sight">Schrein</div>
+            <div class="item-name" style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;margin-bottom:4px;">Namba Yasaka-Schrein</div>
+            <div class="item-detail" style="font-size:12px;color:var(--ink2);">⭐ 4.5 · Riesiger Löwenkopf-Schrein. Sehr fotogen, wenig Touristen vor 11 Uhr.</div>
+          </div>
         </div>
       </div>
 
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">11:30</span></div>
-        <div class="content-col">
-          <div class="item-type type-cafe"><span class="item-dot dot-cafe"></span>Brunch</div>
-          <div class="item-name">CAFE ANNON Namba</div>
-          <div class="item-detail">⭐ 4.1 · 1.000–2.000 ¥ · Letztes Frühstück in Japan. Ruhige Café-Atmosphäre nahe Namba.</div>
+      <div class="tl-item">
+        <div class="tl-time">11:30</div>
+        <div class="tl-line"><div class="tl-dot dot-cafe"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-simple">
+            <div class="item-type type-cafe">Letztes Frühstück</div>
+            <div class="item-name" style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;margin-bottom:4px;">CAFE ANNON Namba</div>
+            <div class="item-detail" style="font-size:12px;color:var(--ink2);">⭐ 4.1 · 1.000–2.000 ¥ · Ruhige Café-Atmosphäre. Letzter Kaffee in Japan.</div>
+          </div>
         </div>
       </div>
 
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">13:00</span></div>
-        <div class="content-col">
-          <div class="item-type type-shop"><span class="item-dot dot-shop"></span>Shopping</div>
-          <div class="item-name">Dotonbori & glänta osaka</div>
-          <div class="item-detail">Letzte Souvenirs. Dotonbori tagsüber kurz, dann glänta osaka shinsaibashi (⭐ 5.0) für Modeaccessoires.</div>
+      <div class="tl-item">
+        <div class="tl-time">13:00</div>
+        <div class="tl-line"><div class="tl-dot dot-shop"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-simple">
+            <div class="item-type type-shop">Shopping</div>
+            <div class="item-name" style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:400;margin-bottom:4px;">Dotonbori · glänta osaka</div>
+            <div class="item-detail" style="font-size:12px;color:var(--ink2);">Letzte Souvenirs. Dotonbori tagsüber kurz anschauen, dann glänta osaka shinsaibashi (⭐ 5.0) für Modeaccessoires.</div>
+          </div>
         </div>
       </div>
 
-      <div class="timeline-item">
-        <div class="time-col"><span class="time">15:00</span></div>
-        <div class="content-col">
-          <div class="item-type type-transit"><span class="item-dot dot-transit"></span>Abreise</div>
-          <div class="item-name">Osaka → Kansai Airport (KIX)</div>
-          <div class="item-detail">Haruka Limited Express ab Shin-Osaka oder JR Kansai-Airport Express ab Namba. Ca. 70 Min.</div>
-          <div class="transit-pill">🚃 Namba → KIX · Nankai Kankū Line · 40 Min · ¥1.450</div>
-          <div class="item-tip">💡 3 Std vor Abflug am Flughafen – Kansai Airport ist groß!</div>
+      <div class="tl-item">
+        <div class="tl-time">15:00</div>
+        <div class="tl-line"><div class="tl-dot dot-transit"></div><div class="tl-thread"></div></div>
+        <div class="tl-content">
+          <div class="item-card">
+            <img class="item-img" src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?w=800&q=80" alt="Airport departure" loading="lazy">
+            <div class="item-card-inner">
+              <div class="item-type type-transit">Abreise</div>
+              <div class="item-name">Osaka → Kansai Airport (KIX)</div>
+              <div class="item-detail">Nankai Kankū Line ab Namba → KIX · 40 Min · ¥1.450. Sayōnara Japan! 🇯🇵</div>
+              <div class="transit-pill">🚃 Namba → KIX · 40 Min · ¥1.450</div>
+              <div class="item-tip">💡 3 Stunden vor Abflug am Flughafen – Kansai Airport ist groß!</div>
+            </div>
+          </div>
         </div>
       </div>
 
     </div>
   </div>
-</div>
+</section>
 
 </main>
 
 <script>
-  function showCity(id) {
-    document.querySelectorAll('.city-section').forEach(s => s.classList.remove('active'));
-    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-    event.target.classList.add('active');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
+function showCity(id, btn) {
+  document.querySelectorAll('.city-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  if (btn) btn.classList.add('active');
+  window.scrollTo({ top: document.querySelector('nav').offsetTop - 1, behavior: 'smooth' });
+}
+
+// Route panel links
+document.querySelectorAll('.route-stop').forEach(el => {
+  el.addEventListener('click', () => {
+    const id = el.getAttribute('onclick').match(/'(\w+)'/)?.[1];
+    if (id) {
+      showCity(id);
+      const btn = [...document.querySelectorAll('.nav-btn')].find(b => b.getAttribute('onclick')?.includes(id));
+      if (btn) { document.querySelectorAll('.nav-btn').forEach(b=>b.classList.remove('active')); btn.classList.add('active'); }
+    }
+  });
+  el.style.cursor = 'pointer';
+});
 </script>
 </body>
 </html>
